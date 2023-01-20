@@ -1,0 +1,1 @@
+export const loginImage = require('./undraw_Login.png'); 

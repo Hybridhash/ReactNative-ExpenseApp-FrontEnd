@@ -10,6 +10,14 @@ const Stack = createStackNavigator();
 
 export default function App() {
 
+  const HomepageScreen1 = () => {
+    return (
+      <View style={styles.containerCenter}>
+      <Text style={styles.whiteText}>HomePage</Text>
+      </View>
+    )
+  }
+
   //States to hold the user status for navigation
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState(null)
@@ -17,14 +25,21 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomepageScreen}/>
-        <Stack.Screen name="Login" component={LoginScreen}/>
-        <Stack.Screen name="Home" component={RegistrationScreen}/>
+        {
+          user ? (<Stack.Screen name="Home" component={HomepageScreen}/>) : 
+          (
+            <>
+            <Stack.Screen name="Login" component={LoginScreen}/>
+            <Stack.Screen name="Registration" component={RegistrationScreen}/>
+            </>
+          )
+        }
       </Stack.Navigator>
     </NavigationContainer>
 
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -33,4 +48,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  whiteText: {
+    color:"white",
+    fontSize:30
+    },
+    containerCenter: {
+    flex: 1,
+    backgroundColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
+    },
 });
