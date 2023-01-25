@@ -11,6 +11,8 @@ export default function App() {
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState(null)
 
+
+
   return (
     <View style={styles.containerCenter}>
     <Text style={styles.whiteText}>HomeScreen</Text>

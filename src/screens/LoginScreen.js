@@ -28,8 +28,7 @@ const loginPress = () => {
         style={{width: "100%", height: "100%" , borderRadius:30}} />
     </View>
     <View style={styles.middle}>
-    <View style={styles.bottom} />
-        <TextInput style={styles.inputBox} 
+    <TextInput style={styles.inputBox} 
         placeholder='Username'
         placeholderTextColor={'black'}
         autoCapitalize="none"
@@ -47,6 +46,7 @@ const loginPress = () => {
                 </Text>
             </View>
         </TouchableOpacity>
+        
     </View>
     <View style={styles.bottom}>
     <Text style={styles.text}> Don't have account</Text>
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
 },
 
    top: {
-    flex: 0.4,
+    flex: 0.40,
     //backgroundColor: 'grey',
     borderWidth: 0,
     borderTopLeftRadius: 20,
@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
+    paddingTop:20
   },
   bottom: {
     flex: 0.25,
@@ -139,7 +140,8 @@ const styles = StyleSheet.create({
     color:"black",
     fontSize: 20,
     alignSelf:'center',
-    fontWeight:'bold'
+    fontWeight:'bold',
+    marginTop:20
   },
 
 
