@@ -9,30 +9,32 @@ import App from './HomepageScreen';
 
 export default function RegistrationScreen({navigation}) {
 
-//States to hold the user password and email  
+//States to hold the user inputs on signup page  
 const [email, setEmail] = useState('')
 const [password, setPassword] = useState('')
 const [name, setName] = useState('')
 const [confirmPassword, setConfirmPassword] = useState('')
  
 
-console.log(name)
+
+
 const loginPress = () => {
+    //Navigate to the login page
     navigation.navigate('Login')
 }
 
 const signupPress = () => {
-    console.log("Signup button pressed")
+    
+    //**Step:1 => Validate the input provided by users before inserting into database */
 
-    //Validating the inputs provided by the users on signup page
-
+    //Validating different inputs provided by the users on signup page
     const emailError = emailValidator(email)
     const nameError = nameValidator(name)
     const passwordError = passwordValidator(password)
     const passConfirmError = passConfirmValidator(confirmPassword)
     const passMismatchError = passMatchValidator(password, confirmPassword)
+    //To show all errors encountered during the signup process
     const errorDisplay = []
-    //console.log(errorDisplay, nameError)
     
     if (nameError || emailError || passwordError || passConfirmError || passMismatchError) {
       
@@ -46,13 +48,12 @@ const signupPress = () => {
         if (errorDisplay[i] !== "")
         alert(errorDisplay[i])
       }
-      
+
       return
     }
         
     
-
-
+    //**Step:2 => Inserting user inputs to database and return errors (if any) */
 
         fetch('http://localhost:8000/v1/user/', {
         method: 'POST',
@@ -60,29 +61,32 @@ const signupPress = () => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            username: 'test4_username',
-            email: 'test5_email',
-            password: 'test5_password'
+            username: name,
+            email: email,
+            password: password
         })
     })
-        .then(response => console.log(response.status))
-        // .then(data => {
-        //     // do something with the response
-        //     console.log(data)
-        //     alert(data.detail)
-        //     //console.log('response:', response.status)
-        // })
-        .catch(error => {
-            alert(error)
-            
-        });
+        .then(response => {
+          //Checking the status for the bad response
+          if (response.ok == false)
+          {response.json()
+            .then(data => {
+              // Alerting the user on the state of the error encountered from backend
+              console.log(data)
+              alert(data.detail)
+              //console.log('response:', response.status)
+            })
+              .catch(error => {
+                console.log(error)   
+              })
+          }
+        else if (response.ok)
+    
+         navigation &&  navigation.navigate('Login')
+    });
 
 
 }    
-
-  
-
-
 
   return (
     <View style={styles.container}>
@@ -93,28 +97,28 @@ const signupPress = () => {
     <View style={styles.middle}>
     <TextInput style={styles.inputBox} 
         placeholder='Name'
-        placeholderTextColor={'black'}
+        placeholderTextColor={'grey'}
         autoCapitalize="none"
         onChangeText={(text) => setName(text)}
         value={name}/>
 
     <TextInput style={styles.inputBox} 
         placeholder='Email'
-        placeholderTextColor={'black'}
+        placeholderTextColor={'grey'}
         autoCapitalize="none"
         onChangeText={(text) => setEmail(text)}
         value={email}/>
 
-        <TextInput style={styles.inputBox} 
+        <TextInput secureTextEntry={false} style={styles.inputBox} 
         placeholder='Password'
-        placeholderTextColor={'black'}
+        placeholderTextColor={'grey'}
         autoCapitalize="none"
         onChangeText={(text) => setPassword(text)}
         value={password}/>
 
-        <TextInput style={styles.inputBox} 
+        <TextInput secureTextEntry={false} style={styles.inputBox} 
         placeholder='Confirm Password'
-        placeholderTextColor={'black'}
+        placeholderTextColor={'grey'}
         autoCapitalize="none"
         onChangeText={(text) => setConfirmPassword(text)}
         value={confirmPassword}/>
@@ -166,6 +170,7 @@ const styles = StyleSheet.create({
     //paddingLeft: 16,
     fontSize: 22,
     fontWeight: '400',
+    //fontColor: 'red',
     textAlign: 'center'
    
 },
