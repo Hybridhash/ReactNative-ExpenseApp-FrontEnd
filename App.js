@@ -7,9 +7,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen, HomepageScreen, RegistrationScreen } from './src/screens'
 
 const Stack = createStackNavigator();
-const UserContext = createContext();
+const LoginContext = createContext();
 
-export const useUser = () => useContext(UserContext)
+export const useLogin = () => useContext(LoginContext)
 
 export default function App() {
 
@@ -27,20 +27,17 @@ export default function App() {
 
   
 
-  //States to hold the user status for navigation
-  const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState(false)
-
-  console.log(user)
+  //States to hold the user status for navigation and passing the data
+  const [token, setToken] = useState()
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   
   return (
-    <UserContext.Provider value={{user, setUser}}>
+    <LoginContext.Provider value={{isLoggedIn, setIsLoggedIn, token, setToken}}>
           <NavigationContainer>
                   <Stack.Navigator>
                     {
-                      user ? (<Stack.Screen name="Home">
-                      {props => <HomepageScreen {...props} extraData={user} />}
-                        </Stack.Screen>) : 
+                      isLoggedIn ? (<Stack.Screen name="Home" component={HomepageScreen} />)
+                      : 
                       (
                         <>
                         
@@ -53,7 +50,7 @@ export default function App() {
                     } 
                   </Stack.Navigator> 
           </NavigationContainer>
-        </UserContext.Provider>
+        </LoginContext.Provider>
       
   );
 }

@@ -1,21 +1,21 @@
 
 import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native';
-
+import { useLogin } from '../../App';
 
 
 
 export default function App() {
 
-  //States to hold the user status for navigation
-  const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState(null)
+// Getting the token as it will be passed on each request to the server  
+const {token} = useLogin()
 
-
+console.log(token)
 
   return (
     <View style={styles.containerCenter}>
-    <Text style={styles.whiteText}>HomeScreen</Text>
+    <Text style={styles.whiteText}>HomeScreen test</Text>
+    <Text style={styles.whiteText}>{token}</Text>
     </View>
 
   );

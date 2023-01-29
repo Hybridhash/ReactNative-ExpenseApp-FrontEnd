@@ -4,12 +4,12 @@ import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { loginImage } from '../../assets';
 import { nameValidator, passwordValidator } from '../../utilities/validator';
-import { useUser } from '../../App';
+import { useLogin } from '../../App';
 
 export default function LoginScreen({navigation}) {
 
 
-const {setUser} = useUser()
+const {setIsLoggedIn, setToken} = useLogin()
 
 //States to hold the user password and email provided by user 
 const [username, setUserName] = useState('')
@@ -74,16 +74,13 @@ const loginPress = () => {
         else if (response.ok)
           {
             response.json().then(data => {
-              console.log(data)
-              //alert(data.detail)
-              //console.log('response:', response.status)
-              //stateChanger = "true"
-              //tokenData("null")
-              //this.tokenData = "null"
+   
+              // Making the loggedin to true and passing the token data for further use
+              setIsLoggedIn(true)
+              setToken(data.access_token)
               
-              //{navigation && navigation.navigate('Home' , { tokenData: data.token })}
-              //navigation.navigate('Home', {user: data.token})
-              setUser(true)
+       
+              
             })
               // .catch(error => {
               //   console.log(error)   
