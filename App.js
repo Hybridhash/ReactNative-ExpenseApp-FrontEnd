@@ -6,6 +6,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen, HomepageScreen, RegistrationScreen } from './src/screens'
 
+
+
 const Stack = createStackNavigator();
 const LoginContext = createContext();
 
@@ -29,7 +31,7 @@ export default function App() {
 
   //States to hold the user status for navigation and passing the data
   const [token, setToken] = useState()
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(true)
   
   return (
     <LoginContext.Provider value={{isLoggedIn, setIsLoggedIn, token, setToken}}>
