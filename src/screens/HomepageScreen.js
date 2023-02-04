@@ -4,16 +4,17 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useLogin } from '../../App';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import  AddScreen  from './AddScreen';
 
 const Tab = createBottomTabNavigator();
 
-function AddScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-    <Text>Add Screen</Text>
-    </View>
-  );
-}
+// function AddScreen() {
+//   return (
+//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+//     <Text>Add Screen</Text>
+//     </View>
+//   );
+// }
 
 function RecordScreen() {
   return (
@@ -30,6 +31,7 @@ function SettingsScreen() {
     </View>
   );
 }
+
 
 
 

@@ -1,6 +1,6 @@
 
 import React, { useContext, useState } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Image,  } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { loginImage } from '../../assets';
 import { nameValidator, passwordValidator } from '../../utilities/validator';
