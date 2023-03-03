@@ -1,16 +1,19 @@
 
 import React, { useState } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, SafeAreaView, TouchableHighlight, Button } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, SafeAreaView} from 'react-native';
 import CalendarPicker from 'react-native-calendar-picker';
 import { useLogin } from '../../App';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import AlertMessage from '../components/AlertMessage';
 
 
 export default () => {
 
-    // States to hold data
+          /*  Inserting a expense data to backend, missing field information is managed 
+            from the back end (such as description, data or calender is missing in the 
+            data sent to server). However, to get the value in digits and description 
+            should be in english */
+       
+    // States to hold data related to add screen
     const [value, setValue] = useState(0);
     const [desc, setDesc] = useState();
     const [selectedDate, setSelectedDate] = useState(null);
@@ -19,21 +22,18 @@ export default () => {
     const [visible, setVisible] = useState(false);
     const [message, setMessage] = useState("")
 
-    // Taking token to be passed on towards backend
+    // Taking token to be passed for post requests to  backend
     const {token} = useLogin()
     
-    // Function to handle to open and close alerts
+    // Function to handle to open and close for alerts
     const handleAlterClose = () => {
         setVisible(false);
       };
-        
-
+    
+    // To post data to back end and show error/success alerts (if any)
     const savePress = () => {
         
-    
-
-        //**Fetching the JSON Token from server to establish secure connection */
-       
+        
         // Checking `type` variable and changing the amount between positive or negative
         const amount = type === 'expense' ? value * -1 : value;
         console.log('Token value: ', 'Bearer '+token);
@@ -78,36 +78,41 @@ export default () => {
                 setDesc("")
             })
           }
-         
-
-    });
-        
+        }); 
     };
 
-    //Converting datetime to string
+    //Getting date in 'YYYY-MM-DD' format
     const startDate = selectedDate ? selectedDate.format('YYYY-MM-DD').toString() : '';
 
-    //Checking the input provided by the user to ensure having only digits
-    const handleTextInput = (text) => {
+    // To check the input provided by the user for english only
+    const handleDescInput = (text) => {
+        // Regular expression to match English letters
+        const englishLetters = /^[a-zA-Z\s]*$/;
+        if (text.match(englishLetters)) {
+            setDesc(text);
+        } else {
+            setDesc("");
+        }
+      };
+    
+    // To check the input provided by the user for digits only
+    const handleValueInput = (value) => {
         // Regular expression to match digits
-        const digits = /^[+-]?[0-9]*$/;
-        if (text.match(digits)) {
-          setValue(text);
-        } else {setValue("")}
-        
+        const digits = /^[+]?[0-9]*$/;
+        if (value.match(digits)) {
+          setValue(value);
+        } else {setValue("")} 
     };
 
     // To handle transaction type and change button colour for expense and income
     const handleTransactionType = () => {
         setBackgroundColor(backgroundColor === 'green' ? 'red' : 'green');
         setType(type === 'expense' ? 'income' : 'expense');
-
       };
 
 
-    //Returning a Row 
+    //Returning the components of add screen
     return (
-        
         <View style={styles.container}>
             <SafeAreaView>
                 <Text style={styles.text}>Enter Value and Expense description</Text>
@@ -116,7 +121,7 @@ export default () => {
                 placeholder='description'
                 placeholderTextColor={'grey'}
                 autoCapitalize="none"
-                onChangeText={(text) => setDesc(text)}
+                onChangeText={handleDescInput}
                 value={desc}/>
 
                 <Text style={[styles.buttonText, {color:'#4455BB'}]}>Click to change expense/income </Text>
@@ -131,7 +136,7 @@ export default () => {
                 placeholder='value'
                 placeholderTextColor={'grey'}
                 autoCapitalize="none"
-                onChangeText={handleTextInput}
+                onChangeText={handleValueInput}
                 value={value}
                 keyboardType="numeric"/>
                 
@@ -147,7 +152,7 @@ export default () => {
                             <Text style={styles.buttonText}>Save</Text>
                     </View>
                 </TouchableOpacity>
-                
+
                 <AlertMessage message={message} visible={visible} onClose={handleAlterClose} />
                 
             </SafeAreaView>
@@ -158,13 +163,11 @@ export default () => {
   }
 
 
-
+// Styling for the add screen
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#B8CFD1',
-        //alignItems: 'center',
-        //justifyContent: 'center',
         },
 
     containerCenter: {
@@ -191,7 +194,6 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         marginLeft: 30,
         marginRight: 30,
-        //paddingLeft: 16,
         borderWidth: 2,
         borderColor:'#4455BB',
         fontSize: 22,
@@ -200,23 +202,15 @@ const styles = StyleSheet.create({
     },
 
     calender: {
-        // height: 50,
         borderRadius: 20,
-        // overflow: 'hidden',
         backgroundColor: '#C0C7CE',
         marginTop: 10,
         marginBottom: 10,
         marginLeft: 30,
         marginRight: 30,
-        //paddingLeft: 16,
-        //alignItems: 'center',
         borderWidth: 2,
         borderColor:'#4455BB',
         justifyContent: 'center',
-        // fontSize: 22,
-        // fontWeight: '400',
-        // textAlign: 'center'
-       
     },
 
     button: {
@@ -227,7 +221,6 @@ const styles = StyleSheet.create({
         paddingTop: 5,
         width: "35%",
         alignSelf:'center', 
-        //position:'absolute',
         top:10,
         right: 0,
         bottom:0,
