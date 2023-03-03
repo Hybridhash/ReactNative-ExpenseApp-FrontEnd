@@ -31,7 +31,7 @@ export default function App() {
 
   //States to hold the user status for navigation and passing the data
   const [token, setToken] = useState()
-  const [isLoggedIn, setIsLoggedIn] = useState(true)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   
   return (
     <LoginContext.Provider value={{isLoggedIn, setIsLoggedIn, token, setToken}}>

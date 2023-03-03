@@ -53,7 +53,7 @@ const {token} = useLogin()
 
 
 
-console.log(token)
+console.log("HomepageScreeen: Token saved upon logging into application and getting the same using const {token} = useLogin():",token)
 
   return (
     <Tab.Navigator screenOptions={{ headerShown: false, tabBarStyle: { position: 'absolute' }, 

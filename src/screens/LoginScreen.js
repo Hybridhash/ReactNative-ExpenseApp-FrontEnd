@@ -5,6 +5,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import { loginImage } from '../../assets';
 import { nameValidator, passwordValidator } from '../../utilities/validator';
 import { useLogin } from '../../App';
+import AlertMessage from '../components/AlertMessage';
 
 export default function LoginScreen({navigation}) {
 

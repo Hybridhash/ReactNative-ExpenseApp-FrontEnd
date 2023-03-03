@@ -1,32 +1,109 @@
 
 import React, { useState } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, SafeAreaView, TouchableHighlight, Button } from 'react-native';
 import CalendarPicker from 'react-native-calendar-picker';
 import { useLogin } from '../../App';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import AlertMessage from '../components/AlertMessage';
 
 
 export default () => {
 
-    const [value, setValue] = useState();
+    // States to hold data
+    const [value, setValue] = useState(0);
     const [desc, setDesc] = useState();
     const [selectedDate, setSelectedDate] = useState(null);
+    const [backgroundColor, setBackgroundColor] = useState('red');
+    const [type, setType] = useState('expense')
+    const [visible, setVisible] = useState(false);
+    const [message, setMessage] = useState("")
+
+    // Taking token to be passed on towards backend
+    const {token} = useLogin()
     
+    // Function to handle to open and close alerts
+    const handleAlterClose = () => {
+        setVisible(false);
+      };
+        
+
     const savePress = () => {
-        console.log("save pressed");
+        
+    
+
+        //**Fetching the JSON Token from server to establish secure connection */
+       
+        // Checking `type` variable and changing the amount between positive or negative
+        const amount = type === 'expense' ? value * -1 : value;
+        console.log('Token value: ', 'Bearer '+token);
+        fetch('http://localhost:8000/v1/expense/', {
+        method: 'POST',
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+token,
+            
+        },
+          body: JSON.stringify({
+              amount: amount,
+              description: desc,
+              date:selectedDate,
+
+          })
+        })
+        .then(response => {
+          //Checking the status for the bad response
+          if (response.ok == false)
+          {response.json()
+            .then(data => {
+              // Alerting the user on the state of the error encountered from backend
+              console.log("Add Transaction Screen:  Error from backend for expense Post and altering user: ", data)
+              alert(data.detail)
+            })
+              .catch(error => {
+                console.log(" Error from backend for expense Post: ", error)   
+              })
+          }
+        else if (response.ok)
+          {  
+            response.json().then(data => {
+                // To make the expense/income first letter uppercase
+                const capitalizedType = type.charAt(0).toUpperCase() + type.slice(1);
+                // Message to be shown on successful submission to back end
+                setMessage(`Successfully added transaction for value of ${data.amount} as ${capitalizedType}`)
+                setVisible(true);
+                console.log("Add Transaction Screen:  Success from backend for expense Post and altering user: ", data)
+                setValue("")
+                setDesc("")
+            })
+          }
+         
+
+    });
+        
     };
 
+    //Converting datetime to string
     const startDate = selectedDate ? selectedDate.format('YYYY-MM-DD').toString() : '';
 
-    const handleChange = (text) => {
+    //Checking the input provided by the user to ensure having only digits
+    const handleTextInput = (text) => {
         // Regular expression to match digits
-        const digits = /^\d+$/;
+        const digits = /^[+-]?[0-9]*$/;
         if (text.match(digits)) {
           setValue(text);
         } else {setValue("")}
         
     };
+
+    // To handle transaction type and change button colour for expense and income
+    const handleTransactionType = () => {
+        setBackgroundColor(backgroundColor === 'green' ? 'red' : 'green');
+        setType(type === 'expense' ? 'income' : 'expense');
+
+      };
+
 
     //Returning a Row 
     return (
@@ -42,11 +119,19 @@ export default () => {
                 onChangeText={(text) => setDesc(text)}
                 value={desc}/>
 
+                <Text style={[styles.buttonText, {color:'#4455BB'}]}>Click to change expense/income </Text>
+
+                <TouchableOpacity
+                    style={[styles.button, { backgroundColor, borderWidth: 0, paddingBottom:10, paddingTop:10, marginBottom: 20}]}
+                    onPress={handleTransactionType}>
+                   <Text style={styles.buttonText}>{type}</Text>
+                </TouchableOpacity>
+              
                 <TextInput style={styles.inputBox} 
                 placeholder='value'
                 placeholderTextColor={'grey'}
                 autoCapitalize="none"
-                onChangeText={handleChange}
+                onChangeText={handleTextInput}
                 value={value}
                 keyboardType="numeric"/>
                 
@@ -62,6 +147,9 @@ export default () => {
                             <Text style={styles.buttonText}>Save</Text>
                     </View>
                 </TouchableOpacity>
+                
+                <AlertMessage message={message} visible={visible} onClose={handleAlterClose} />
+                
             </SafeAreaView>
         </View>
         
@@ -146,10 +234,34 @@ const styles = StyleSheet.create({
         backgroundColor:'#4455BB',
       },
 
+    background:{
+        backgroundColor:'green',
+    },
+
     buttonText: {
         color:"#FFFFFF",
         fontSize: 20,
         alignSelf:'center',
         fontWeight:'bold'
     },
+
+    container1: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      btnNormal: {
+        borderColor: 'blue',
+        borderWidth: 1,
+        borderRadius: 10,
+        height: 30,
+        width: 100,
+      },
+      btnPress: {
+        borderColor: 'blue',
+        borderWidth: 1,
+        borderRadius: 10,
+        height: 30,
+        width: 100,
+      }
 });
