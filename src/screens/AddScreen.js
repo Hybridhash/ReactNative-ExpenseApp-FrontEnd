@@ -71,7 +71,7 @@ export default () => {
                 // To make the expense/income first letter uppercase
                 const capitalizedType = type.charAt(0).toUpperCase() + type.slice(1);
                 // Message to be shown on successful submission to back end
-                setMessage(`Successfully added transaction for value of ${data.amount} as ${capitalizedType}`)
+                setMessage(`${desc} successfully added for value of ${data.amount} as ${capitalizedType}`)
                 setVisible(true);
                 console.log("Add Transaction Screen:  Success from backend for expense Post and altering user: ", data)
                 setValue("")
