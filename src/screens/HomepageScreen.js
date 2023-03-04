@@ -5,24 +5,19 @@ import { useLogin } from '../../App';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import  AddScreen  from './AddScreen';
+import RecordScreen from './RecordScreen';
+
 
 const Tab = createBottomTabNavigator();
 
-// function AddScreen() {
+
+// function RecordScreen() {
 //   return (
 //     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-//     <Text>Add Screen</Text>
+//     <Text>Records Screen</Text>
 //     </View>
 //   );
 // }
-
-function RecordScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-    <Text>Records Screen</Text>
-    </View>
-  );
-}
 
 function SettingsScreen() {
   return (
