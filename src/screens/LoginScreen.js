@@ -1,66 +1,136 @@
 
-import React, { useState } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+import React, { useContext, useState } from 'react'
+import { StyleSheet, Text, TouchableOpacity, View, Image,  } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { loginImage } from '../../assets';
-
-
+import { nameValidator, passwordValidator } from '../../utilities/validator';
+import { useLogin } from '../../App';
+import AlertMessage from '../components/AlertMessage';
 
 export default function LoginScreen({navigation}) {
- 
+
+
+const {setIsLoggedIn, setToken} = useLogin()
+
+//States to hold the user password and email provided by user 
+const [username, setUserName] = useState('')
+const [password, setPassword] = useState('')
+
+// Action to perform on pressing the signup button
 const signupPress = () => {
     navigation.navigate('Registration')
 }
 
+// Action to perform on pressing the login button
 const loginPress = () => {
     console.log("login button pressed")
 
-}    
+    //**Step:1 => Validate the users input before calling the server */
 
-  //States to hold the user password and email  
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+    //Validating different inputs provided by the users for login
+    const usernameError = nameValidator(username)
+    const passwordError = passwordValidator(password)
+
+    //To show all errors encountered during the signup process
+    const errorDisplay = []
+    
+    if (usernameError || passwordError ) {
+      
+      errorDisplay.push(passwordError)
+      errorDisplay.push(usernameError)
+
+      //Looping over the list of error and displaying it for user to address
+      for(let i = 0; i < errorDisplay.length; i++){
+        if (errorDisplay[i] !== "")
+        alert(errorDisplay[i])
+      }
+      return
+    }
+
+    //**Step:2 => Fetching the JSON Token from server to establish secure connection */
+
+        fetch('http://localhost:8000/v1/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+          body: JSON.stringify({
+              username: username,
+              password: password
+          })
+        })
+        .then(response => {
+          //Checking the status for the bad response
+          if (response.ok == false)
+          {response.json()
+            .then(data => {
+              // Alerting the user on the state of the error encountered from backend
+              console.log(data)
+              alert(data.detail)
+            })
+              .catch(error => {
+                console.log(error)   
+              })
+          }
+        else if (response.ok)
+          {
+            response.json().then(data => {
+   
+              // Making the loggedin to true and passing the token data for further use
+              setIsLoggedIn(true)
+              setToken(data.access_token)
+              
+       
+              
+            })
+              // .catch(error => {
+              //   console.log(error)   
+              // })
+          }
+         
+
+    });
+}    
 
   return (
     <View style={styles.container}>
-    <View style={styles.top}>
-        <Image source={loginImage} 
-        style={{width: "100%", height: "100%" , borderRadius:30}} />
-    </View>
-    <View style={styles.middle}>
-    <View style={styles.bottom} />
-        <TextInput style={styles.inputBox} 
-        placeholder='Username'
-        placeholderTextColor={'black'}
-        autoCapitalize="none"
-        onChangeText={(text) => setEmail(text)}
-        value={email}/>
+    
+      <View style={styles.top}>
+          <Image source={loginImage} 
+          style={{width: "100%", height: "100%" , borderRadius:30}} />
+      </View>
 
-        <TextInput style={styles.inputBox} 
-        placeholder='Password'
-        placeholderTextColor={'black'}
-        autoCapitalize="none"/>
-        <TouchableOpacity onPress={() => loginPress()}>
-        <View style={styles.button}>
-                <Text style={styles.buttonText}>
-                Login
-                </Text>
-            </View>
-        </TouchableOpacity>
-    </View>
-    <View style={styles.bottom}>
-    <Text style={styles.text}> Don't have account</Text>
-    <TouchableOpacity onPress={() => signupPress()}>
-        <View style={styles.button}>
-                <Text style={styles.buttonText}>
-                Signup
-                </Text>
-            </View>
-    </TouchableOpacity>
-    </View>
-    </View>
- 
+      <View style={styles.middle}>
+          <TextInput style={styles.inputBox} 
+            placeholder='Username'
+            placeholderTextColor={'grey'}
+            autoCapitalize="none"
+            onChangeText={(text) => setUserName(text)}
+            value={username}/>
 
+          <TextInput secureTextEntry={true} style={styles.inputBox} 
+          placeholder='Password'
+          placeholderTextColor={'grey'}
+          autoCapitalize="none"
+          onChangeText={(text) => setPassword(text)}
+          value={password}/>
+          
+          <TouchableOpacity onPress={() => loginPress()}>
+            <View style={styles.button}>
+                    <Text style={styles.buttonText}>Login</Text>
+            </View>
+          </TouchableOpacity>
+      </View>
+
+      <View style={styles.bottom}>
+          <Text style={styles.text}> Don't have account</Text>
+            <TouchableOpacity onPress={() => signupPress()}>
+                <View style={styles.button}>
+                        <Text style={styles.buttonText}>Signup</Text>
+                </View>
+            </TouchableOpacity>
+      </View>
+    </View>
   );
 }
 
@@ -91,7 +161,7 @@ const styles = StyleSheet.create({
 },
 
    top: {
-    flex: 0.4,
+    flex: 0.40,
     //backgroundColor: 'grey',
     borderWidth: 0,
     borderTopLeftRadius: 20,
@@ -105,6 +175,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
+    paddingTop:20
   },
   bottom: {
     flex: 0.25,
@@ -139,10 +210,7 @@ const styles = StyleSheet.create({
     color:"black",
     fontSize: 20,
     alignSelf:'center',
-    fontWeight:'bold'
+    fontWeight:'bold',
+    marginTop:20
   },
-
-
-
-
 });

@@ -5,3 +5,5 @@ export { default as LoginScreen } from './LoginScreen'
 export { default as HomepageScreen } from './HomepageScreen'
 
 export { default as RegistrationScreen } from './RegistrationScreen'
+
+//export { default as AddScreen } from './AddScreen'

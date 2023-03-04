@@ -1,14 +1,23 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen, HomepageScreen, RegistrationScreen } from './src/screens'
 
+
+
 const Stack = createStackNavigator();
+const LoginContext = createContext();
+
+export const useLogin = () => useContext(LoginContext)
 
 export default function App() {
+
+  //let childRef = useRef(null);
+
+  
 
   const HomepageScreen1 = () => {
     return (
@@ -18,25 +27,33 @@ export default function App() {
     )
   }
 
-  //States to hold the user status for navigation
-  const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState(null)
+  
 
+  //States to hold the user status for navigation and passing the data
+  const [token, setToken] = useState()
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        {
-          user ? (<Stack.Screen name="Home" component={HomepageScreen}/>) : 
-          (
-            <>
-            <Stack.Screen name="Login" component={LoginScreen}/>
-            <Stack.Screen name="Registration" component={RegistrationScreen}/>
-            </>
-          )
-        }
-      </Stack.Navigator>
-    </NavigationContainer>
-
+    <LoginContext.Provider value={{isLoggedIn, setIsLoggedIn, token, setToken}}>
+          <NavigationContainer>
+                  <Stack.Navigator>
+                    {
+                      isLoggedIn ? (<Stack.Screen name="Home" component={HomepageScreen} />)
+                      : 
+                      (
+                        <>
+                        
+                        <Stack.Screen name="Login" component={LoginScreen} />
+                        <Stack.Screen name="Registration" component={RegistrationScreen}/>
+                        
+                        </>
+                        
+                      )
+                    } 
+                  </Stack.Navigator> 
+          </NavigationContainer>
+        </LoginContext.Provider>
+      
   );
 }
 
