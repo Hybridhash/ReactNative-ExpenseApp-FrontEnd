@@ -13,12 +13,14 @@ const DATA = [
   {
     id:"1",
     title:"Data Structures",
-    amount: 20
+    amount: 20,
+    date:"2023-03-04T09:00:00"
   },
   {
     id:"2",
     title:"STL",
-    amount: 20
+    amount: 20,
+    date:"2023-03-04T09:00:00"
   },
   {
     id:"3",
@@ -28,47 +30,56 @@ const DATA = [
   {
     id:"4",
     title:"Java",
-    amount: 20
+    amount: 20,
+    date:"2023-03-04T09:00:00"
   },
   {
     id:"5",
     title:"Python",
-    amount: 20
+    amount: 20,
+    date:"2023-03-04T09:00:00"
   },
   {
     id:"6",
     title:"CP",
-    amount: 20
+    amount: 20,
+    date:"2023-03-04T09:00:00"
   },
   {
     id:"7",
     title:"ReactJs",
-    amount: 20
+    amount: 20,
+    date:"2023-03-04T09:00:00"
   },
   {
     id:"8",
     title:"NodeJs",
-    amount: 20
+    amount: 20,
+    date:"2023-03-04T09:00:00"
   },
   {
     id:"9",
     title:"MongoDb",
-    amount: 20
+    amount: 20,
+    date:"2023-03-04T09:00:00"
   },
   {
     id:"10",
     title:"ExpressJs",
-    amount: 20
+    amount: 20,
+    date:"2023-03-04T09:00:00"
   },
   {
     id:"11",
     title:"PHP",
-    amount: 25
+    amount: 25,
+    date:"2023-03-04T09:00:00"
   },
   {
     id:"12",
     title:"MySql",
-    amount: 20
+    amount: 20,
+    date:"2023-03-04T09:00:00"
   },
 ];
 
@@ -155,67 +166,30 @@ export default () => {
     //Getting date in 'YYYY-MM-DD' format
     const startDate = selectedDate ? selectedDate.format('YYYY-MM-DD').toString() : '';
 
-    // To check the input provided by the user for english only
-    const handleDescInput = (text) => {
-        // Regular expression to match English letters
-        const englishLetters = /^[a-zA-Z\s]*$/;
-        if (text.match(englishLetters)) {
-            setDesc(text);
-        } else {
-            setDesc("");
-        }
-      };
-    
-    // To check the input provided by the user for digits only
-    const handleValueInput = (value) => {
-        // Regular expression to match digits
-        const digits = /^[+]?[0-9]*$/;
-        if (value.match(digits)) {
-          setValue(value);
-        } else {setValue("")} 
-    };
-
+   
     // To handle transaction type and change button colour for expense and income
     const handleTransactionType = () => {
         setBackgroundColor(backgroundColor === 'green' ? 'red' : 'green');
         setType(type === 'expense' ? 'income' : 'expense');
       };
     
+    // Function to create the transaction list based on data fetched from backend
     const renderItem = ({item})=>( 
-        <Transaction title={item.title} amount={item.amount} id={item.id}/>
+        <Transaction title={item.title} amount={item.amount} id={item.id} date={item.date}/>
       );
 
-    //Returning the components of add screen
     return (
         <View style={styles.container}>
-          
               <SafeAreaView style={{ marginBottom:tabBarHeight}}>
                   <Text style={styles.text}>Expenses Detail</Text>
-
-                  {/* <TouchableOpacity onPressIn={() => isHovered === false ? setIsHovered(true): setIsHovered(false)}>
-                      <View style={isHovered ? styles.innerContainerHover : styles.innerContainer}>
-                              <Text style={styles.innerContainerText}>Save</Text>
-                              <Text style={styles.innerContainerText}>Save</Text>
-                      </View>
-                  </TouchableOpacity> */}
-
-                  {/* <View style={[styles.listContainer, { backgroundColor: 'red', marginBottom:tabBarHeight }]}> */}
-                  
                     <FlatList
                       data={DATA}
                       renderItem={renderItem}
                       keyExtractor={item => item.id}
                     />
-                  {/* </View> */}
-
-                  <AlertMessage message={message} visible={visible} onClose={handleAlterClose} />
-                  
+                  <AlertMessage message={message} visible={visible} onClose={handleAlterClose} /> 
               </SafeAreaView>
-            
-              {/* <View style={styles.bottomContainer} /> */}
         </View>
-        
-
     );
   }
 
@@ -227,15 +201,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#B8CFD1',
         marginBottom: 30,
         },
-
-    bottomContainer: {
-        flex: 1,
-        // backgroundColor: '#fff',
-        // alignItems: 'center',
-        // justifyContent: 'center',
-        // marginBottom: 50,
-        },
-
     text: {
         color:"black",
         fontSize: 20,
@@ -260,42 +225,10 @@ const styles = StyleSheet.create({
         backgroundColor:'#4455BB',
       },
 
-    background:{
-        backgroundColor:'green',
-    },
-
+  
     innerContainerText: {
         color:"#FFFFFF",
         fontSize: 20,
         fontWeight:'bold'
     },
-
-    container1: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-   
-      listContainer: {
-        marginTop:20,
-        padding:0,
-        flexDirection:'row',
-        alignSelf:'center', 
-        width: "95%",
-        // justifyContent: 'space-between',
-        // flexDirection: 'row',
-        // marginBottom: 16 
-     
-      },
-      item: {
-        backgroundColor: '#4455BB',
-        padding: 20,
-        marginVertical: 8,
-        marginHorizontal: 16,
-        borderColor:"#4455BB",
-        borderWidth: 3,
-        borderRadius:10,
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-      },
 });
