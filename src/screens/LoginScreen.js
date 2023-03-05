@@ -24,6 +24,55 @@ const signupPress = () => {
     navigation.navigate('Registration')
 }
 
+const fetchJWT = async (username, password) => {
+  //**Step:2 => Fetching the JSON Token from server to establish secure connection */
+  
+     await fetch('http://localhost:8000/v1/login', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+        },
+          body: JSON.stringify({
+              username: username,
+              password: password
+          })
+        })
+        .then(response => {
+          //Checking the status for the bad response
+          if (response.ok == false)
+          {response.json()
+            .then(data => {
+              // Alerting the user on the state of the error encountered from backend
+              console.log(data)
+              alert(data.detail)
+            })
+              .catch(error => {
+                console.log(error)   
+              })
+          }
+        else if (response.ok)
+          {
+            response.json().then(data => {
+  
+              // Making the loggedin to true and passing the token data for further use
+              setIsLoggedIn(true)
+              setToken(data.access_token)
+              // Store the token using AsyncStorage
+              AsyncStorage.setItem('token', data.access_token);
+              // Keychain.setGenericPassword(username, data.access_token);
+              // const credentials =  Keychain.getGenericPassword();
+              // console.log("credentials from keychain", credentials)
+              
+      
+              
+            })
+              // .catch(error => {
+              //   console.log(error)   
+              // })
+          }
+        });
+      }
+
 // Action to perform on pressing the login button
 const loginPress = () => {
     console.log("login button pressed")
@@ -50,54 +99,9 @@ const loginPress = () => {
       return
     }
 
-    //**Step:2 => Fetching the JSON Token from server to establish secure connection */
-
-        fetch('http://localhost:8000/v1/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-          body: JSON.stringify({
-              username: username,
-              password: password
-          })
-        })
-        .then(response => {
-          //Checking the status for the bad response
-          if (response.ok == false)
-          {response.json()
-            .then(data => {
-              // Alerting the user on the state of the error encountered from backend
-              console.log(data)
-              alert(data.detail)
-            })
-              .catch(error => {
-                console.log(error)   
-              })
-          }
-        else if (response.ok)
-          {
-            response.json().then(data => {
-   
-              // Making the loggedin to true and passing the token data for further use
-              setIsLoggedIn(true)
-              setToken(data.access_token)
-              // Store the token using AsyncStorage
-              AsyncStorage.setItem('token', data.access_token);
-              // Keychain.setGenericPassword(username, data.access_token);
-              // const credentials =  Keychain.getGenericPassword();
-              // console.log("credentials from keychain", credentials)
-              
-       
-              
-            })
-              // .catch(error => {
-              //   console.log(error)   
-              // })
-          }
-         
-
-    });
+    ///// Calling function to fetch the token
+    fetchJWT(username,password)
+    
 }    
 
   return (
