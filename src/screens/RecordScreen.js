@@ -5,7 +5,8 @@ import { useLogin } from '../../App';
 import AlertMessage from '../components/AlertMessage';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import Transaction from '../components/Transactions';
-import { fetchTransactions } from '../../utilities/http';
+import { fetchTransactionsHTTP } from '../../utilities/http';
+import * as Keychain from "react-native-keychain";
 
 export default () => {
 
@@ -28,6 +29,7 @@ export default () => {
     const [message, setMessage] = useState("")
     const [isHovered, setIsHovered] = useState(false);
     const [transactionData, setTransactionData] = useState([]);
+    // const [parkedData, setParkedData] = useState([]);
 
     // Taking token to be passed for post requests to  backend
     const {token} = useLogin()
@@ -37,27 +39,37 @@ export default () => {
         setVisible(false);
       };
 
-    useEffect(() => {
-      // setTransactionData(fetchTransactions)
+    // const fetchTransactions = async () => {
+      
+    //     let parkedData = []
+    //     await fetch('http://localhost:8000/v1/get_transaction/', {
+    //     method: 'GET',
+    //     headers: {
+    //         'accept': 'application/json',
+    //         'Content-Type': 'application/json',
+    //         'Authorization': 'Bearer '+token,
+    //       },
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //       // console.log('Data received from backend for expenses: ', data);
+    //       parkedData = data
+       
+    //     })
+    //     .catch(error => {
+    //       // console.log('Error while fetching expenses data from backend: ', error);
+    //       alert(error)
+    //     });
+    //       // console.log('Parked Data: ', parkedData);
+    //     return parkedData
+    //   }
 
-      fetch('http://localhost:8000/v1/get_transaction/', {
-        method: 'GET',
-        headers: {
-            'accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+token,
-          },
-        })
-        .then(response => response.json())
-        .then(data => {
-          console.log('Data received from backend for expenses: ', data);
-          setTransactionData(data)
-        })
-        .catch(error => {
-          console.log('Error while fetching expenses data from backend: ', error);
-          alert(error)
-        });
-          console.log('Error while fetching expenses data from backend: ', transactionData);
+      useEffect(() => {
+        const fetchData = async () => {
+          const data = await fetchTransactionsHTTP();
+          setTransactionData(data);
+        }
+        fetchData();
       }, []);
 
    

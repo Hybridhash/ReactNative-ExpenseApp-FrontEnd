@@ -6,6 +6,8 @@ import { loginImage } from '../../assets';
 import { nameValidator, passwordValidator } from '../../utilities/validator';
 import { useLogin } from '../../App';
 import AlertMessage from '../components/AlertMessage';
+import * as Keychain from "react-native-keychain";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen({navigation}) {
 
@@ -15,6 +17,7 @@ const {setIsLoggedIn, setToken} = useLogin()
 //States to hold the user password and email provided by user 
 const [username, setUserName] = useState('')
 const [password, setPassword] = useState('')
+const [userDetails, setUserDetails] = useState({});
 
 // Action to perform on pressing the signup button
 const signupPress = () => {
@@ -79,6 +82,11 @@ const loginPress = () => {
               // Making the loggedin to true and passing the token data for further use
               setIsLoggedIn(true)
               setToken(data.access_token)
+              // Store the token using AsyncStorage
+              AsyncStorage.setItem('token', data.access_token);
+              // Keychain.setGenericPassword(username, data.access_token);
+              // const credentials =  Keychain.getGenericPassword();
+              // console.log("credentials from keychain", credentials)
               
        
               
