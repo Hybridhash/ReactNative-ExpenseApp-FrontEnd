@@ -1,11 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen, HomepageScreen, RegistrationScreen } from './src/screens'
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const Stack = createStackNavigator();
@@ -32,6 +32,22 @@ export default function App() {
   //States to hold the user status for navigation and passing the data
   const [token, setToken] = useState()
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const credentials = await AsyncStorage.getItem('token');
+  //       if (credentials) {
+  //         setIsLoggedIn(true);
+  //         // setUserDetails(credentials);
+  //       } else {
+  //         console.log("No credentials stored");
+  //       }
+  //     } catch (error) {
+  //       console.log("Keychain couldn't be accessed!", error);
+  //     }
+  //   })();
+  // }, []);
   
   return (
     <LoginContext.Provider value={{isLoggedIn, setIsLoggedIn, token, setToken}}>

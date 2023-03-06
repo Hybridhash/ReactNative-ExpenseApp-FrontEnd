@@ -25,7 +25,7 @@ const signupPress = () => {
 }
 
 const fetchJWT = async (username, password) => {
-  //**Step:2 => Fetching the JSON Token from server to establish secure connection */
+  //Fetching the JSON Token from server to establish secure connection */
   
      await fetch('http://localhost:8000/v1/login', {
       method: 'POST',
@@ -59,16 +59,7 @@ const fetchJWT = async (username, password) => {
               setToken(data.access_token)
               // Store the token using AsyncStorage
               AsyncStorage.setItem('token', data.access_token);
-              // Keychain.setGenericPassword(username, data.access_token);
-              // const credentials =  Keychain.getGenericPassword();
-              // console.log("credentials from keychain", credentials)
-              
-      
-              
             })
-              // .catch(error => {
-              //   console.log(error)   
-              // })
           }
         });
       }

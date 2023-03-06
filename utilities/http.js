@@ -1,7 +1,58 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useLogin } from '../App';
 
 
- 
+
+
+const fetchJWT = (username, password) => {
+
+    //**Step:2 => Fetching the JSON Token from server to establish secure connection */
+  
+     fetch('http://localhost:8000/v1/login', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+        },
+          body: JSON.stringify({
+              username: username,
+              password: password
+          })
+        })
+        .then(response => {
+          //Checking the status for the bad response
+          if (response.ok == false)
+          {response.json()
+            .then(data => {
+              // Alerting the user on the state of the error encountered from backend
+              console.log(data)
+              alert(data.detail)
+            })
+              .catch(error => {
+                console.log(error)   
+              })
+          }
+        else if (response.ok)
+          {
+            response.json().then(data => {
+  
+              // Making the loggedin to true and passing the token data for further use
+              // setIsLoggedIn(true)
+              // setToken(data.access_token)
+              // Store the token using AsyncStorage
+              AsyncStorage.setItem('token', data.access_token);
+              // Keychain.setGenericPassword(username, data.access_token);
+              // const credentials =  Keychain.getGenericPassword();
+              // console.log("credentials from keychain", credentials)
+              return true
+      
+              
+            })
+              // .catch(error => {
+              //   console.log(error)   
+              // })
+          }
+        });
+      }
 
 const fetchTransactionsHTTP = async () => {
     let parkedData = []
@@ -30,4 +81,4 @@ const fetchTransactionsHTTP = async () => {
     return parkedData
   }
 
-  export { fetchTransactionsHTTP };
+  export { fetchTransactionsHTTP, fetchJWT };
