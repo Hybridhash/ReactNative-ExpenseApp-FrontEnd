@@ -30,6 +30,7 @@ export default () => {
     const [isHovered, setIsHovered] = useState(false);
     const [transactionData, setTransactionData] = useState([]);
     // const [parkedData, setParkedData] = useState([]);
+    const [deleteStatus, setDeleteStatus] = useState(false);
 
     // Taking token to be passed for post requests to  backend
     const {token} = useLogin()
@@ -68,9 +69,11 @@ export default () => {
         const fetchData = async () => {
           const data = await fetchTransactionsHTTP();
           setTransactionData(data);
+          console.log("Use Effect",data);
+          setDeleteStatus(false);
         }
         fetchData();
-      }, []);
+      }, [deleteStatus]);
 
    
     // To handle transaction type and change button colour for expense and income
@@ -81,7 +84,22 @@ export default () => {
     
     // Function to create the transaction list based on data fetched from backend
     const renderItem = ({item})=>( 
-        <Transaction title={item.description} amount={item.amount} id={item.id} date={item.date}/>
+        <Transaction 
+          title={item.description} 
+          amount={item.amount} 
+          id={item.id} 
+          date={item.date}    
+          callback={(response, action) => {
+          setMessage(item.description + response);
+          console.log("Transaction:",response)
+          console.log("setMessage:",message)
+          console.log("SetDeleteStatus before state update",deleteStatus)
+          setDeleteStatus(action);
+          setVisible(true);
+          console.log("Transaction",action)
+          console.log("SetDeleteStatus after state update",deleteStatus)
+
+        }}/>
       );
 
     return (

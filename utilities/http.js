@@ -77,7 +77,7 @@ const fetchTransactionsHTTP = async () => {
       // console.log('Error while fetching expenses data from backend: ', error);
       alert(error)
     });
-      console.log('Parked Data: ', parkedData);
+      // console.log('Parked Data: ', parkedData);
     return parkedData
   }
 
