@@ -8,7 +8,7 @@ import Transaction from '../components/Transactions';
 import { fetchTransactionsHTTP } from '../../utilities/http';
 import * as Keychain from "react-native-keychain";
 
-export default () => {
+export default ({navigation}) => {
 
   const tabBarHeight = useBottomTabBarHeight() + 20;
 
@@ -30,7 +30,7 @@ export default () => {
     const [isHovered, setIsHovered] = useState(false);
     const [transactionData, setTransactionData] = useState([]);
     // const [parkedData, setParkedData] = useState([]);
-    const [deleteStatus, setDeleteStatus] = useState(false);
+    const [refreshStatus, setRefreshStatus] = useState(false);
 
     // Taking token to be passed for post requests to  backend
     const {token} = useLogin()
@@ -65,16 +65,30 @@ export default () => {
     //     return parkedData
     //   }
 
-      useEffect(() => {
-        const fetchData = async () => {
-          const data = await fetchTransactionsHTTP();
-          setTransactionData(data);
-          console.log("Use Effect",data);
-          setDeleteStatus(false);
-        }
-        fetchData();
-      }, [deleteStatus]);
+    //Hook to refresh data on deleting the transaction
+    useEffect(() => {
+      const fetchData = async () => {
+        const data = await fetchTransactionsHTTP();
+        // To store the data fetched from back end
+        setTransactionData(data);
+        // console.log("Use Effect",data);
+        setRefreshStatus(false);
+      }
+      fetchData();
+    }, [refreshStatus]);
 
+    //Hook to refresh the page on tab press from other screens
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('tabPress', (e) => {
+          // Prevent default behavior
+          // e.preventDefault();
+          // alert('Default behavior prevented');
+          setRefreshStatus(true);
+
+        });
+    
+        return unsubscribe;
+      }, [navigation]);
    
     // To handle transaction type and change button colour for expense and income
     const handleTransactionType = () => {
@@ -93,11 +107,11 @@ export default () => {
           setMessage(item.description + response);
           console.log("Transaction:",response)
           console.log("setMessage:",message)
-          console.log("SetDeleteStatus before state update",deleteStatus)
-          setDeleteStatus(action);
+          console.log("setRefreshStatus before state update",refreshStatus)
+          setRefreshStatus(action);
           setVisible(true);
           console.log("Transaction",action)
-          console.log("SetDeleteStatus after state update",deleteStatus)
+          console.log("setRefreshStatus after state update",refreshStatus)
 
         }}/>
       );
@@ -115,6 +129,7 @@ export default () => {
               </SafeAreaView>
         </View>
     );
+    
   }
 
 

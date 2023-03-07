@@ -47,7 +47,8 @@ const fetchJWT = async (username, password) => {
               alert(data.detail)
             })
               .catch(error => {
-                console.log(error)   
+                console.log(error)
+                alert(error)   
               })
           }
         else if (response.ok)

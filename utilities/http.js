@@ -56,28 +56,43 @@ const fetchJWT = (username, password) => {
 
 const fetchTransactionsHTTP = async () => {
     let parkedData = []
-    // Retrieve the token from AsyncStorage
-    const token = await AsyncStorage.getItem('token');
+    try {
+        // Retrieve the token from AsyncStorage
+        const token = await AsyncStorage.getItem('token');
 
-    await fetch('http://localhost:8000/v1/get_transaction/', {
-    method: 'GET',
-    headers: {
-        'accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer '+token,
-      },
-    })
-    .then(response => response.json())
-    .then(data => {
-      // console.log('Data received from backend for expenses: ', data);
-      parkedData = data
+        const response = await fetch('http://localhost:8000/v1/get_transaction/', {
+        method: 'GET',
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+token,
+          },
+        });
+          if (!response.ok) {
+            const data = await response.json();
+            // Alerting the user on the state of the error encountered from backend
+            console.log(data);
+            alert(data.detail);
+          } else {
+            const data = await response.json();
+            console.log(data);
+            parkedData = data
+          }
+    }catch (error) {
+      console.error(error);
+    }
+
+    // .then(response => response.json())
+    // .then(data => {
+    //   // console.log('Data received from backend for expenses: ', data);
+    //   parkedData = data
    
-    })
-    .catch(error => {
-      // console.log('Error while fetching expenses data from backend: ', error);
-      alert(error)
-    });
-      // console.log('Parked Data: ', parkedData);
+    // })
+    // .catch(error => {
+    //   // console.log('Error while fetching expenses data from backend: ', error);
+    //   alert(error)
+    // });
+    //   // console.log('Parked Data: ', parkedData);
     return parkedData
   }
 

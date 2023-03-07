@@ -19,10 +19,29 @@ const Tab = createBottomTabNavigator();
 //   );
 // }
 
-function SettingsScreen() {
+function SettingsScreen({route, navigation}) {
+  const [visible, setVisible] = useState(false);
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('tabPress', (e) => {
+      // Prevent default behavior
+      // e.preventDefault();
+      alert('Default behavior prevented');
+      setVisible(true);
+      // console.log(e);
+      console.log("Setting Screen",visible)
+      // Do something manually
+      // ...
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
+  const { param } = route.params;
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
     <Text>Settings Screen</Text>
+    <Text>{param}</Text>
     </View>
   );
 }
@@ -63,7 +82,7 @@ console.log("HomepageScreeen: Token saved upon logging into application and gett
             <MaterialCommunityIcons name="file-cabinet" color={color} size={36} />
           ),
         }}/>
-      <Tab.Screen name="Settings" component={SettingsScreen} options={{
+      <Tab.Screen name="Settings" component={SettingsScreen} initialParams={{ param: 'Hello World' }} options={{
         tabBarIcon: ({ color}) => (
             <Ionicons name="settings-outline" color={color} size={36} />
           ),

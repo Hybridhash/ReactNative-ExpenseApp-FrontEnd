@@ -1,9 +1,10 @@
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, SafeAreaView} from 'react-native';
 import CalendarPicker from 'react-native-calendar-picker';
 import { useLogin } from '../../App';
 import AlertMessage from '../components/AlertMessage';
+import { fetchData } from './RecordScreen';
 
 
 export default () => {
@@ -29,7 +30,7 @@ export default () => {
     const handleAlterClose = () => {
         setVisible(false);
       };
-    
+  
     // To post data to back end and show error/success alerts (if any)
     const savePress = () => {
         
@@ -109,7 +110,7 @@ export default () => {
         setBackgroundColor(backgroundColor === 'green' ? 'red' : 'green');
         setType(type === 'expense' ? 'income' : 'expense');
       };
-
+    
 
     //Returning the components of add screen
     return (
