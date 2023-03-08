@@ -1,11 +1,13 @@
 
 import React, { useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View , Dimensions } from 'react-native';
 import { useLogin } from '../../App';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import  AddScreen  from './AddScreen';
 import RecordScreen from './RecordScreen';
+import SettingsScreen from './SettingsScreen';
+import { LineChart } from "react-native-chart-kit";
 
 
 const Tab = createBottomTabNavigator();
@@ -19,7 +21,7 @@ const Tab = createBottomTabNavigator();
 //   );
 // }
 
-function SettingsScreen({route, navigation}) {
+function TestScreen({route, navigation}) {
   const [visible, setVisible] = useState(false);
 
   React.useEffect(() => {
@@ -37,12 +39,73 @@ function SettingsScreen({route, navigation}) {
     return unsubscribe;
   }, [navigation]);
 
+
+  const chartConfig = {
+    // color: (opacity = 1) => `rgba(100, 100, 255, ${opacity})`,
+    fillShadowGradient: "blue",
+    fillShadowGradientOpacity: 1,
+    strokeWidth: 2, // optional, default 3
+    barPercentage: 0.5,
+    useShadowColorFromDataset: false, // optional
+  };
+
   const { param } = route.params;
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
     <Text>Settings Screen</Text>
     <Text>{param}</Text>
+
+    <View>
+  <Text>Bezier Line Chart</Text>
+  <LineChart
+    data={{
+      labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      datasets: [
+        {
+          data: [
+            Math.random() * 100,
+            Math.random() * 100,
+            Math.random() * 100,
+            Math.random() * 100,
+            Math.random() * 100,
+            Math.random() * 100
+          ]
+        }
+      ]
+    }}
+    width={Dimensions.get("window").width} // from react-native
+    height={220}
+    yAxisLabel="$"
+    // yAxisSuffix="k"
+    yAxisInterval={1} // optional, defaults to 1
+    chartConfig={{
+      // backgroundColor: "#e26a00",
+      backgroundGradientFrom: "#fb8c00",
+      backgroundGradientTo: "#4455BB",
+      decimalPlaces: 0, // optional, defaults to 2dp
+      color: (opacity = 0) => `rgba(255, 255, 255, ${opacity})`,
+      labelColor: (opacity = 0) => `rgba(255, 255, 255, ${opacity})`,
+      style: {
+        borderRadius: 16
+      },
+      propsForDots: {
+        r: "6",
+        strokeWidth: "2",
+        stroke: "#ffa726"
+      }
+    }}
+    bezier
+    style={{
+      marginVertical: 8,
+      borderRadius: 40
+    }}
+  />
+</View>
+
+
     </View>
+    
+    
   );
 }
 

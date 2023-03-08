@@ -96,4 +96,12 @@ const fetchTransactionsHTTP = async () => {
     return parkedData
   }
 
-  export { fetchTransactionsHTTP, fetchJWT };
+  const fetchData = async (setTransactionData,setRefreshStatus ) => {
+    const data = await fetchTransactionsHTTP();
+    // To store the data fetched from back end
+    setTransactionData(data);
+    // console.log("Use Effect",data);
+    setRefreshStatus(false);
+  }
+
+  export { fetchTransactionsHTTP, fetchJWT, fetchData };
