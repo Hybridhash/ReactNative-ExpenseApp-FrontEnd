@@ -5,7 +5,6 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen, HomepageScreen, RegistrationScreen } from './src/screens'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const Stack = createStackNavigator();
@@ -52,24 +51,21 @@ export default function App() {
   return (
     <LoginContext.Provider value={{isLoggedIn, setIsLoggedIn, token, setToken}}>
           <NavigationContainer>
-                  <Stack.Navigator>
+                  <Stack.Navigator >
                     {
-                      isLoggedIn ? (<Stack.Screen name="Home" component={HomepageScreen} />)
+                      isLoggedIn ? (<Stack.Screen name="Home" component={HomepageScreen} options={{title: 'Awesome Expense App'}}
+                      />)
                       : 
                       (
                         <>
-                        
                         <Stack.Screen name="Login" component={LoginScreen} />
                         <Stack.Screen name="Registration" component={RegistrationScreen}/>
-                        
                         </>
-                        
                       )
                     } 
                   </Stack.Navigator> 
           </NavigationContainer>
         </LoginContext.Provider>
-      
   );
 }
 

@@ -33,7 +33,11 @@ export default () => {
   
     // To post data to back end and show error/success alerts (if any)
     const savePress = () => {
-        
+        if (selectedDate == null){
+          setMessage("Please select the date"),
+          setVisible(true)
+          return
+        }
         
         // Checking `type` variable and changing the amount between positive or negative
         const amount = type === 'expense' ? value * -1 : value;
@@ -82,9 +86,6 @@ export default () => {
         }); 
     };
 
-    //Getting date in 'YYYY-MM-DD' format
-    const startDate = selectedDate ? selectedDate.format('YYYY-MM-DD').toString() : '';
-
     // To check the input provided by the user for english only
     const handleDescInput = (text) => {
         // Regular expression to match English letters
@@ -111,6 +112,7 @@ export default () => {
         setType(type === 'expense' ? 'income' : 'expense');
       };
     
+    // To check the input provided by the user for date
 
     //Returning the components of add screen
     return (
@@ -145,7 +147,8 @@ export default () => {
                     <CalendarPicker  width = {390} 
                     selectedDayColor="#4455BB"  
                     selectedDayTextColor="#FFFFFF"
-                    onDateChange={setSelectedDate}/>
+                    onDateChange={setSelectedDate}
+                    />
                 </View>
 
                 <TouchableOpacity onPress={() => savePress()}>
@@ -153,13 +156,9 @@ export default () => {
                             <Text style={styles.buttonText}>Save</Text>
                     </View>
                 </TouchableOpacity>
-
-                <AlertMessage message={message} visible={visible} onClose={handleAlterClose} />
-                
+                <AlertMessage message={message} visible={visible} onClose={handleAlterClose} /> 
             </SafeAreaView>
         </View>
-        
-
     );
   }
 

@@ -82,17 +82,6 @@ const fetchTransactionsHTTP = async () => {
       console.error(error);
     }
 
-    // .then(response => response.json())
-    // .then(data => {
-    //   // console.log('Data received from backend for expenses: ', data);
-    //   parkedData = data
-   
-    // })
-    // .catch(error => {
-    //   // console.log('Error while fetching expenses data from backend: ', error);
-    //   alert(error)
-    // });
-    //   // console.log('Parked Data: ', parkedData);
     return parkedData
   }
 

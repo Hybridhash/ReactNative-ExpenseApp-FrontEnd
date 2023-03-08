@@ -3,23 +3,15 @@ import React, { useState } from 'react'
 import { StyleSheet, Text, View , Dimensions } from 'react-native';
 import { useLogin } from '../../App';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Ionicons, Octicons  } from '@expo/vector-icons';
 import  AddScreen  from './AddScreen';
 import RecordScreen from './RecordScreen';
-import SettingsScreen from './SettingsScreen';
+import StatisticScreen from './StatisticScreen';
 import { LineChart } from "react-native-chart-kit";
 
 
 const Tab = createBottomTabNavigator();
 
-
-// function RecordScreen() {
-//   return (
-//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-//     <Text>Records Screen</Text>
-//     </View>
-//   );
-// }
 
 function TestScreen({route, navigation}) {
   const [visible, setVisible] = useState(false);
@@ -29,9 +21,9 @@ function TestScreen({route, navigation}) {
       // Prevent default behavior
       // e.preventDefault();
       alert('Default behavior prevented');
-      setVisible(true);
+      // setVisible(true);
       // console.log(e);
-      console.log("Setting Screen",visible)
+      // console.log("Setting Screen",visible)
       // Do something manually
       // ...
     });
@@ -110,19 +102,6 @@ function TestScreen({route, navigation}) {
 }
 
 
-
-
-function HomeTabs() {
-  return (
-  
-  <View style={styles.containerCenter}>
-  <Text style={styles.whiteText}>HomeScreen test</Text>
-  <Text style={styles.whiteText}>{token}</Text>
-  </View>
-
-  );
-}
-
 export default function App() {
 
 // Getting the token as it will be passed on each request to the server  
@@ -145,7 +124,12 @@ console.log("HomepageScreeen: Token saved upon logging into application and gett
             <MaterialCommunityIcons name="file-cabinet" color={color} size={36} />
           ),
         }}/>
-      <Tab.Screen name="Settings" component={SettingsScreen} initialParams={{ param: 'Hello World' }} options={{
+      <Tab.Screen name="Statistic" component={StatisticScreen} initialParams={{ param: 'Hello World' }} options={{
+        tabBarIcon: ({ color}) => (
+            <Octicons name="graph" color={color} size={32} />
+          ),
+        }}/>
+      <Tab.Screen name="Settings" component={TestScreen} initialParams={{ param: 'Hello World' }} options={{
         tabBarIcon: ({ color}) => (
             <Ionicons name="settings-outline" color={color} size={36} />
           ),
