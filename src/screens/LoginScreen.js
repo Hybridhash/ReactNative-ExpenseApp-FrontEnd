@@ -4,7 +4,9 @@ import { StyleSheet, Text, TouchableOpacity, View, Image,  } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler';
 import { loginImage } from '../../assets';
 import { nameValidator, passwordValidator } from '../../utilities/validator';
-import { useLogin } from '../../App';
+// import { useLogin } from '../../App';
+import { useLogin } from '../context/LoginContext';
+
 import AlertMessage from '../components/AlertMessage';
 import * as Keychain from "react-native-keychain";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -12,7 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function LoginScreen({navigation}) {
 
 
-const {setIsLoggedIn, setToken} = useLogin()
+const {isLoggedIn, setIsLoggedIn, setToken} = useLogin()
 
 //States to hold the user password and email provided by user 
 const [username, setUserName] = useState('')

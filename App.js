@@ -5,12 +5,15 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen, HomepageScreen, RegistrationScreen } from './src/screens'
+import { LoginProvider, useLogin } from './src/context/LoginContext';
+import Navigation from './src/screens/Navigation';
 
 
 const Stack = createStackNavigator();
-const LoginContext = createContext();
+// const LoginContext = createContext();
 
-export const useLogin = () => useContext(LoginContext)
+// export const useLogin = () => useContext(LoginContext)
+
 
 export default function App() {
 
@@ -29,8 +32,12 @@ export default function App() {
   
 
   //States to hold the user status for navigation and passing the data
-  const [token, setToken] = useState()
+  // const [token, setToken] = useState()
+  // const {isLoggedIn} = useLogin()
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  // const { isLoggedIn } = useContext(LoginContext);
+  // console.log(isLoggedIn)
+  // console.log(LoginContext)
 
   // useEffect(() => {
   //   (async () => {
@@ -49,8 +56,9 @@ export default function App() {
   // }, []);
   
   return (
-    <LoginContext.Provider value={{isLoggedIn, setIsLoggedIn, token, setToken}}>
-          <NavigationContainer>
+    // <LoginContext.Provider value={{isLoggedIn, setIsLoggedIn, token, setToken}}>
+        <LoginProvider>
+          {/* <NavigationContainer>
                   <Stack.Navigator >
                     {
                       isLoggedIn ? (<Stack.Screen name="Home" component={HomepageScreen} options={{title: 'Awesome Expense App'}}
@@ -64,8 +72,10 @@ export default function App() {
                       )
                     } 
                   </Stack.Navigator> 
-          </NavigationContainer>
-        </LoginContext.Provider>
+          </NavigationContainer> */}
+            <Navigation/>
+          </LoginProvider>
+        // </LoginContext.Provider>
   );
 }
 

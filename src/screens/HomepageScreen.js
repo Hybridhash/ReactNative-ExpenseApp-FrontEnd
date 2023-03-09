@@ -1,7 +1,8 @@
 
 import React, { useState } from 'react'
 import { StyleSheet, Text, View , Dimensions } from 'react-native';
-import { useLogin } from '../../App';
+// import { useLogin } from '../../App';
+import { useLogin } from '../context/LoginContext';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons, Ionicons, Octicons  } from '@expo/vector-icons';
 import  AddScreen  from './AddScreen';

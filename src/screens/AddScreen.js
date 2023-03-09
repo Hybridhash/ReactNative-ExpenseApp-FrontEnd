@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, SafeAreaView} from 'react-native';
 import CalendarPicker from 'react-native-calendar-picker';
-import { useLogin } from '../../App';
+// import { useLogin } from '../../App';
+import { useLogin } from '../context/LoginContext';
 import AlertMessage from '../components/AlertMessage';
 import { fetchData } from './RecordScreen';
 
