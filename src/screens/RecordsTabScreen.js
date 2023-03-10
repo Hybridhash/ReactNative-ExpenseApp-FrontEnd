@@ -16,8 +16,8 @@ export default ({navigation}) => {
 
    
     // States to hold data related to add screen
-    const [backgroundColor, setBackgroundColor] = useState('red');
-    const [type, setType] = useState('expense')
+    // const [backgroundColor, setBackgroundColor] = useState('red');
+    // const [type, setType] = useState('expense')
     const [visible, setVisible] = useState(false);
     const [message, setMessage] = useState("")
     const [transactionData, setTransactionData] = useState([]);

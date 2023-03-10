@@ -51,6 +51,7 @@ const fetchJWT = (username, password) => {
         });
       }
 
+// To fetch the transaction data from backend
 const fetchTransactionsHTTP = async () => {
     let parkedData = []
     try {
@@ -132,4 +133,11 @@ const fetchTransactionsHTTP = async () => {
     }
   }
 
-  export { fetchTransactionsHTTP, insertTransactionHTTP, fetchJWT, fetchData };
+  const appLogout = async (setIsLoggedIn) => {
+    // To delete token stored in application database
+    await AsyncStorage.removeItem('token');
+    // To store the data fetched from back end
+    setIsLoggedIn(false);
+  }
+
+  export { fetchTransactionsHTTP, insertTransactionHTTP, fetchJWT, fetchData, appLogout };
