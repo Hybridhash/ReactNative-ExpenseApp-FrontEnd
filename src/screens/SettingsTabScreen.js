@@ -5,7 +5,7 @@ import CalendarPicker from 'react-native-calendar-picker';
 // import { useLogin } from '../../App';
 import { useLogin } from '../context/LoginContext';
 import AlertMessage from '../components/AlertMessage';
-import { fetchData } from './RecordScreen';
+// import { fetchData } from './RecordsTabScreen';
 
 
 export default () => {

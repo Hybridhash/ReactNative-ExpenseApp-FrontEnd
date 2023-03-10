@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, SafeAreaView, Dimensions, FlatList } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, FlatList } from 'react-native';
 import AlertMessage from '../components/AlertMessage';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import Transaction from '../components/Transactions';
@@ -9,15 +9,12 @@ import { fetchTransactionsHTTP } from '../../utilities/http';
 
 export default ({navigation}) => {
 
-  const tabBarHeight = useBottomTabBarHeight() + 20;
+          /*  - Shows Transactions already recorded in the database
+              - Hooks are used to load data on first start and upon navigating 
+                between tabs
+              - The bottom tab bar is used to show the current tab*/
 
-  console.log(tabBarHeight);
-
-          /*  Inserting a expense data to backend, missing field information is managed 
-            from the back end (such as description, data or calender is missing in the 
-            data sent to server). However, to get the value in digits and description 
-            should be in english */
-  
+   
     // States to hold data related to add screen
     const [backgroundColor, setBackgroundColor] = useState('red');
     const [type, setType] = useState('expense')
@@ -26,16 +23,8 @@ export default ({navigation}) => {
     const [transactionData, setTransactionData] = useState([]);
     const [refreshStatus, setRefreshStatus] = useState(false);
 
-    // Taking token to be passed for post requests to  backend
-    // const {token} = useLogin()
-    
-    // Function to handle to open and close for alerts
-    const handleAlterClose = () => {
-        setVisible(false);
-      };
-
-    //Hook to refresh data on deleting the transaction
-    useEffect(() => {
+     //Hook to refresh data on deleting the transaction
+     useEffect(() => {
       const fetchData = async () => {
         const data = await fetchTransactionsHTTP();
         // To store the data fetched from back end
@@ -51,44 +40,40 @@ export default ({navigation}) => {
         const unsubscribe = navigation.addListener('tabPress', (e) => {
           // Prevent default behavior
           // e.preventDefault();
-          // alert('Default behavior prevented');
           setRefreshStatus(true);
-
         });
-    
         return unsubscribe;
       }, [navigation]);
-   
-    // To handle transaction type and change button colour for expense and income
-    const handleTransactionType = () => {
-        setBackgroundColor(backgroundColor === 'green' ? 'red' : 'green');
-        setType(type === 'expense' ? 'income' : 'expense');
-      };
-    
+
+    // to get the height of the bottom navigation bar          
+    const tabBarHeight = useBottomTabBarHeight() + 20;
+
     // Function to create the transaction list based on data fetched from backend
     const renderItem = ({item})=>( 
+        // Using transaction component to display the items in a list
         <Transaction 
           title={item.description} 
           amount={item.amount} 
           id={item.id} 
           date={item.date}    
           callback={(response, action) => {
+          // To display message on adding a expense or income record
           setMessage(item.description + response);
-          // console.log("Transaction:",response)
-          // console.log("setMessage:",message)
-          // console.log("setRefreshStatus before state update",refreshStatus)
-          setRefreshStatus(action);
           setVisible(true);
-          // console.log("Transaction",action)
-          // console.log("setRefreshStatus after state update",refreshStatus)
-
+          // to refresh the records on adding any new transaction
+          setRefreshStatus(action);
         }}/>
       );
-
+    
+    // Function to handle to open and close for alerts
+    const handleAlterClose = () => {
+      setVisible(false);
+    };
+    
     return (
         <View style={styles.container}>
               <SafeAreaView style={{ marginBottom:tabBarHeight}}>
-                  <Text style={styles.text}>Expenses Detail</Text>
+                  <Text style={styles.text}>Transactions Detail</Text>
                     <FlatList
                       data={transactionData}
                       renderItem={renderItem}
@@ -99,7 +84,6 @@ export default ({navigation}) => {
         </View>
     );
   }
-
 
 // Styling for the Records Screen
 const styles = StyleSheet.create({
@@ -115,27 +99,4 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         marginTop:20
       },
-
- 
-    innerContainer: {
-        borderColor:"#4455BB",
-        borderWidth: 3,
-        borderRadius:10,
-        padding:15,
-        width: "90%",
-        alignSelf:'center', 
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        top:10,
-        right: 0,
-        bottom:0,
-        backgroundColor:'#4455BB',
-      },
-
-  
-    innerContainerText: {
-        color:"#FFFFFF",
-        fontSize: 20,
-        fontWeight:'bold'
-    },
 });

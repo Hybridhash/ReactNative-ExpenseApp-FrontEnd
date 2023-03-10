@@ -3,7 +3,7 @@ import React, {  } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons, Ionicons, Octicons  } from '@expo/vector-icons';
 import AddScreenTab from './AddScreenTab';
-import RecordScreen from './RecordScreen';
+import RecordsTabScreen from './RecordsTabScreen';
 import StatisticTabScreen from './StatisticTabScreen';
 import SettingsTabScreen from './SettingsTabScreen';
 
@@ -28,7 +28,7 @@ export default function App() {
           }}
       />
       {/* Records - Shows record from backend */}
-      <Tab.Screen name="Records" component={RecordScreen} 
+      <Tab.Screen name="Records" component={RecordsTabScreen} 
         options={{
           tabBarIcon: ({ color}) => (
               <MaterialCommunityIcons name="file-cabinet" color={color} size={36} />
