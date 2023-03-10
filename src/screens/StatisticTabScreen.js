@@ -1,15 +1,15 @@
 
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, SafeAreaView, Dimensions} from 'react-native';
-import AlertMessage from '../components/AlertMessage';
+import { StyleSheet, Text, View, SafeAreaView, Dimensions} from 'react-native';
+// import AlertMessage from '../components/AlertMessage';
 import { fetchData } from '../../utilities/http';
 import { LineChart } from "react-native-chart-kit";
 
 export default ({navigation}) => {
 
-          /*  Fetching data from backend to show total income and expenses incurred since last. 
-          Moreover, this screen also shows the transactions incurred during last one week.
-          Data is transformed first before showing it to the screen*/
+          /*  - Fetching data from backend to show total income and expenses incurred. 
+              - Shows the transactions incurred during last one week.
+              - Data is transformed first before showing it to the screen*/
        
     // States to hold data related to add screen
     const [transactionData, setTransactionData] = useState([]);
@@ -33,14 +33,13 @@ export default ({navigation}) => {
         return unsubscribe;
       }, [navigation]);
 
-    // To get the amount only from dataset and converting it into income and expense for display
+    // Functions to get the amount from dataset and bifurcating it into income and expense for display
     const amounts = transactionData.map(transaction => transaction.amount);
     const income = amounts.filter(item => item > 0).reduce((acc, item) => (acc += item), 0)
     const expense = (amounts.filter(item => item < 0).reduce((acc, item) => (acc += item), 0)) * -1
     
-  
-    
-    // Getting the transaction for last one week  
+     
+    // Getting the list of transactions for last one week  - Starting today
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
         
@@ -73,6 +72,7 @@ export default ({navigation}) => {
     return (
         <View style={styles.container}>
             <SafeAreaView>
+                {/* Container - To show expense/income*/}
                 <Text style={styles.text}>Total Expense/Income</Text>
                 <View style={styles.rowContainer}>
                     <View style={styles.expenseContainer}>
@@ -84,6 +84,7 @@ export default ({navigation}) => {
                         <Text style={styles.containerText}>{income}</Text>
                     </View>
                 </View>
+                {/* Line Chart - React Native Chart is used*/}
                 <Text style={styles.text}>Last Week Expenses </Text>
                     <LineChart
                         data={{
@@ -122,7 +123,6 @@ export default ({navigation}) => {
     );
   }
 
-
 // Styling for the add screen
 const styles = StyleSheet.create({
     container: {
@@ -136,7 +136,6 @@ const styles = StyleSheet.create({
         height:"30%",
 
     },    
-    
     text: {
         color:'#4455BB',
         fontSize: 20,
@@ -144,7 +143,6 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         marginTop:20
       },
-
     incomeContainer: {
         borderColor:"#2E8B57",
         borderWidth: 3,
@@ -170,7 +168,6 @@ const styles = StyleSheet.create({
         backgroundColor:"#FA8072",
         justifyContent: 'center',
     },
-
     containerText: {
         color:"#FFFFFF",
         fontSize: 20,
