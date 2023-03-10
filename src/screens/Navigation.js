@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import HomepageScreen from './HomepageScreen';
+import TabNavigation from './TabNavigation';
 import LoginScreen from './LoginScreen';
 import RegistrationScreen from './RegistrationScreen';
 import { useLogin } from '../context/LoginContext';
@@ -10,7 +10,7 @@ import { useLogin } from '../context/LoginContext';
 const Stack = createStackNavigator();
 
 export default function Navigation() {
-// const [isLoggedIn, setIsLoggedIn] = useState(false)
+
 const {isLoggedIn, setIsLoggedIn, setToken} = useLogin()
   return (
     <NavigationContainer>
@@ -18,7 +18,7 @@ const {isLoggedIn, setIsLoggedIn, setToken} = useLogin()
         {isLoggedIn ? (
           <Stack.Screen
             name="Home"
-            component={HomepageScreen}
+            component={TabNavigation}
             options={{ title: 'Awesome Expense App' }}
           />
         ) : (

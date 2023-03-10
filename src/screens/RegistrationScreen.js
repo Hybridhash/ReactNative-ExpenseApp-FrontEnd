@@ -4,7 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { registrationImage } from '../../assets';
 import { emailValidator, nameValidator, passwordValidator, passConfirmValidator, passMatchValidator} from '../../utilities/validator';
-import App from './HomepageScreen';
+import App from './TabNavigation';
 //import axios from 'axios';
 
 export default function RegistrationScreen({navigation}) {
