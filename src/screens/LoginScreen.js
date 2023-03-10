@@ -6,7 +6,6 @@ import { loginImage } from '../../assets';
 import { nameValidator, passwordValidator } from '../../utilities/validator';
 import { useLogin } from '../context/LoginContext';
 import { fetchJWT } from '../../utilities/http';
-
 import AlertMessage from '../components/AlertMessage';
 
 
@@ -16,7 +15,7 @@ export default function LoginScreen({navigation}) {
 const [username, setUserName] = useState('')
 const [password, setPassword] = useState('')
 const [visible, setVisible] = useState(false);
-const [message, setMessage] = useState("")
+const [message, setMessage] = useState([])
 
 // Context to setIsLoggedIn to "true"
 const {setIsLoggedIn, setToken} = useLogin()
@@ -34,20 +33,16 @@ const loginPress = () => {
     const usernameError = nameValidator(username)
     const passwordError = passwordValidator(password)
 
-    //To show all errors encountered during the signup process
+    //To show all errors encountered during the login process
     const errorDisplay = []
     
     if (usernameError || passwordError ) {
       
       errorDisplay.push(passwordError)
       errorDisplay.push(usernameError)
-
-      //Looping over the list of error and displaying it for user to address
-      for(let i = 0; i < errorDisplay.length; i++){
-        if (errorDisplay[i] !== "")
-        setMessage(errorDisplay[i]);ß
-        setVisible(true);
-      }
+      // State variable to show modal for errors
+      setVisible(true);
+      setMessage(errorDisplay)
       return
     }
     // Calling function in HTTP to setIsLoggedIn to "true"
@@ -106,12 +101,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#B8CFD1',
-    //alignItems: 'center',
     justifyContent: 'space-between',
     padding: 20,
     margin:10,
   },
-
   inputBox: {
     height: 50,
     borderRadius: 10,
@@ -121,16 +114,12 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     marginLeft: 30,
     marginRight: 30,
-    //paddingLeft: 16,
     fontSize: 22,
     fontWeight: '400',
     textAlign: 'center'
-   
-},
-
+  },
    top: {
     flex: 0.40,
-    //backgroundColor: 'grey',
     borderWidth: 0,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -138,7 +127,6 @@ const styles = StyleSheet.create({
   middle: {
     flex: 0.30,
     backgroundColor: 'white',
-    //borderWidth: 2,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     borderBottomLeftRadius: 25,
@@ -147,7 +135,6 @@ const styles = StyleSheet.create({
   },
   bottom: {
     flex: 0.25,
-    //backgroundColor: 'pink',
     borderWidth: 0,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
@@ -161,7 +148,6 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     width: "35%",
     alignSelf:'center', 
-    //position:'absolute',
     top:10,
     right: 0,
     bottom:0,
