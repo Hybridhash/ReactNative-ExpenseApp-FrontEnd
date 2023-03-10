@@ -5,6 +5,7 @@ import CalendarPicker from 'react-native-calendar-picker';
 // import { useLogin } from '../../App';
 import { useLogin } from '../context/LoginContext';
 import AlertMessage from '../components/AlertMessage';
+import { insertTransactionHTTP } from '../../utilities/http';
 // import { fetchData } from './RecordScreen';
 
 
@@ -33,58 +34,68 @@ export default () => {
       };
   
     // To post data to back end and show error/success alerts (if any)
-    const savePress = () => {
+    const savePress = async () => {
         if (selectedDate == null){
           setMessage("Please select the date"),
           setVisible(true)
           return
         }
-        
-        // Checking `type` variable and changing the amount between positive or negative
-        const amount = type === 'expense' ? value * -1 : value;
-        console.log('Token value: ', 'Bearer '+token);
-        fetch('http://localhost:8000/v1/expense/', {
-        method: 'POST',
-        headers: {
-            'accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+token,
-            
-        },
-          body: JSON.stringify({
-              amount: amount,
-              description: desc,
-              date:selectedDate,
+        const result = await insertTransactionHTTP( type, value, desc, selectedDate);
 
-          })
-        })
-        .then(response => {
-          //Checking the status for the bad response
-          if (response.ok == false)
-          {response.json()
-            .then(data => {
-              // Alerting the user on the state of the error encountered from backend
-              console.log("Add Transaction Screen:  Error from backend for expense Post and altering user: ", data)
-              alert(data.detail)
-            })
-              .catch(error => {
-                console.log(" Error from backend for expense Post: ", error)   
-              })
-          }
-        else if (response.ok)
-          {  
-            response.json().then(data => {
-                // To make the expense/income first letter uppercase
-                const capitalizedType = type.charAt(0).toUpperCase() + type.slice(1);
-                // Message to be shown on successful submission to back end
-                setMessage(`${desc} successfully added for value of ${data.amount} as ${capitalizedType}`)
-                setVisible(true);
-                console.log("Add Transaction Screen:  Success from backend for expense Post and altering user: ", data)
-                setValue("")
-                setDesc("")
-            })
-          }
-        }); 
+        if (result.error) {
+          alert(result.error);
+        } else if (result.message) {
+          setMessage(result.message);
+          setVisible(true);
+          setValue("")
+          setDesc("")
+        }
+
+        // Checking `type` variable and changing the amount between positive or negative
+        // const amount = type === 'expense' ? value * -1 : value;
+        // console.log('Token value: ', 'Bearer '+token);
+        // fetch('http://localhost:8000/v1/expense/', {
+        // method: 'POST',
+        // headers: {
+        //     'accept': 'application/json',
+        //     'Content-Type': 'application/json',
+        //     'Authorization': 'Bearer '+token,
+            
+        // },
+        //   body: JSON.stringify({
+        //       amount: amount,
+        //       description: desc,
+        //       date:selectedDate,
+
+        //   })
+        // })
+        // .then(response => {
+        //   //Checking the status for the bad response
+        //   if (response.ok == false)
+        //   {response.json()
+        //     .then(data => {
+        //       // Alerting the user on the state of the error encountered from backend
+        //       console.log("Add Transaction Screen:  Error from backend for expense Post and altering user: ", data)
+        //       alert(data.detail)
+        //     })
+        //       .catch(error => {
+        //         console.log(" Error from backend for expense Post: ", error)   
+        //       })
+        //   }
+        // else if (response.ok)
+        //   {  
+        //     response.json().then(data => {
+        //         // To make the expense/income first letter uppercase
+        //         const capitalizedType = type.charAt(0).toUpperCase() + type.slice(1);
+        //         // Message to be shown on successful submission to back end
+        //         setMessage(`${desc} successfully added for value of ${data.amount} as ${capitalizedType}`)
+        //         setVisible(true);
+        //         console.log("Add Transaction Screen:  Success from backend for expense Post and altering user: ", data)
+        //         setValue("")
+        //         setDesc("")
+        //     })
+        //   }
+        // }); 
     };
 
     // To check the input provided by the user for english only

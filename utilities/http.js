@@ -90,4 +90,46 @@ const fetchTransactionsHTTP = async () => {
     setRefreshStatus(false);
   }
 
-  export { fetchTransactionsHTTP, fetchJWT, fetchData };
+  const insertTransactionHTTP = async (type, value, desc, selectedDate) => {
+    // Checking `type` variable and changing the amount between positive or negative
+    const amount = type === 'expense' ? value * -1 : value;
+    // console.log('Token value: ', 'Bearer '+token);
+    
+    try {
+      // Retrieve the token from AsyncStorage
+      const token = await AsyncStorage.getItem('token');
+
+      const response = await fetch('http://localhost:8000/v1/expense/', {
+        method: 'POST',
+        headers: {
+          'accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer '+token,
+        },
+        body: JSON.stringify({
+          amount: amount,
+          description: desc,
+          date:selectedDate,
+        })
+      });
+      
+      if (!response.ok) {
+        const data = await response.json();
+        console.log("Backend error :", data);
+        return { error: data.detail };
+      } else {
+        const data = await response.json();
+
+        // To make the expense/income first letter uppercase for better presentation
+        const capitalizedType = type.charAt(0).toUpperCase() + type.slice(1);
+        
+        // Message to be shown on successful submission to backend [FastAPI]
+        return { message: `${desc} successfully added for value of ${data.amount} as ${capitalizedType}` };
+      }
+    } catch (error) {
+      console.log("Error from backend for expense Post:", error);
+      return { error };
+    }
+  }
+
+  export { fetchTransactionsHTTP, insertTransactionHTTP, fetchJWT, fetchData };
