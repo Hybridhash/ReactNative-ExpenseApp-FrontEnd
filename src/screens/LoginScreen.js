@@ -4,73 +4,31 @@ import { StyleSheet, Text, TouchableOpacity, View, Image,  } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler';
 import { loginImage } from '../../assets';
 import { nameValidator, passwordValidator } from '../../utilities/validator';
-// import { useLogin } from '../../App';
 import { useLogin } from '../context/LoginContext';
+import { fetchJWT } from '../../utilities/http';
 
 import AlertMessage from '../components/AlertMessage';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function LoginScreen({navigation}) {
-
-
-const {setIsLoggedIn, setToken} = useLogin()
 
 //States to hold the user password and email provided by user 
 const [username, setUserName] = useState('')
 const [password, setPassword] = useState('')
-const [userDetails, setUserDetails] = useState({});
+const [visible, setVisible] = useState(false);
+const [message, setMessage] = useState("")
 
-// Action to perform on pressing the signup button
+// Context to setIsLoggedIn to "true"
+const {setIsLoggedIn, setToken} = useLogin()
+
+
+// Navigation to signup screen
 const signupPress = () => {
     navigation.navigate('Registration')
 }
 
-const fetchJWT = async (username, password) => {
-  //Fetching the JSON Token from server to establish secure connection */
-  
-     await fetch('http://localhost:8000/v1/login', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-        },
-          body: JSON.stringify({
-              username: username,
-              password: password
-          })
-        })
-        .then(response => {
-          //Checking the status for the bad response
-          if (response.ok == false)
-          {response.json()
-            .then(data => {
-              // Alerting the user on the state of the error encountered from backend
-              console.log(data)
-              alert(data.detail)
-            })
-              .catch(error => {
-                console.log(error)
-                alert(error)   
-              })
-          }
-        else if (response.ok)
-          {
-            response.json().then(data => {
-  
-              // Making the loggedin to true and passing the token data for further use
-              setIsLoggedIn(true)
-              setToken(data.access_token)
-              // Store the token using AsyncStorage
-              AsyncStorage.setItem('token', data.access_token);
-            })
-          }
-        });
-      }
-
 // Action to perform on pressing the login button
 const loginPress = () => {
-    console.log("login button pressed")
-
-    //**Step:1 => Validate the users input before calling the server */
 
     //Validating different inputs provided by the users for login
     const usernameError = nameValidator(username)
@@ -87,15 +45,19 @@ const loginPress = () => {
       //Looping over the list of error and displaying it for user to address
       for(let i = 0; i < errorDisplay.length; i++){
         if (errorDisplay[i] !== "")
-        alert(errorDisplay[i])
+        setMessage(errorDisplay[i]);ß
+        setVisible(true);
       }
       return
     }
+    // Calling function in HTTP to setIsLoggedIn to "true"
+    fetchJWT(username,password,setIsLoggedIn) 
+}
 
-    ///// Calling function to fetch the token
-    fetchJWT(username,password)
-    
-}    
+// Function to handle to open and close for alerts
+const handleAlterClose = () => {
+    setVisible(false);
+  };
 
   return (
     <View style={styles.container}>
@@ -135,6 +97,7 @@ const loginPress = () => {
                 </View>
             </TouchableOpacity>
       </View>
+      <AlertMessage message={message} visible={visible} onClose={handleAlterClose} /> 
     </View>
   );
 }

@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const fetchJWT = (username, password) => {
+const fetchJWT = (username, password, setIsLoggedIn) => {
 
     //**Step:2 => Fetching the JSON Token from server to establish secure connection */
   
@@ -40,8 +40,7 @@ const fetchJWT = (username, password) => {
               // Keychain.setGenericPassword(username, data.access_token);
               // const credentials =  Keychain.getGenericPassword();
               // console.log("credentials from keychain", credentials)
-              return true
-      
+              setIsLoggedIn(true)
               
             })
               // .catch(error => {
