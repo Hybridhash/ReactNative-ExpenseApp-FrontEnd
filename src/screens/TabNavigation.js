@@ -1,8 +1,8 @@
 
-import React, { useState } from 'react'
+import React, {  } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons, Ionicons, Octicons  } from '@expo/vector-icons';
-import  AddScreen  from './AddScreen';
+import AddScreenTab from './AddScreenTab';
 import RecordScreen from './RecordScreen';
 import StatisticTabScreen from './StatisticTabScreen';
 import SettingsTabScreen from './SettingsTabScreen';
@@ -20,7 +20,7 @@ export default function App() {
     <Tab.Navigator screenOptions={{ headerShown: false, tabBarStyle: { position: 'absolute' }, 
     tabBarActiveTintColor: '#e91e63'}} >
       {/* Add Transaction - To add new transaction */}
-      <Tab.Screen name="Add" component={AddScreen} 
+      <Tab.Screen name="Add" component={AddScreenTab} 
         options={{
           tabBarIcon: ({ color}) => (
               <Ionicons name="add-outline" color={color} size={36} />

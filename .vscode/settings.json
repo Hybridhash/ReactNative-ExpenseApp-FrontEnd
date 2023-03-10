@@ -23,5 +23,10 @@
         "colour",
         "Keychain",
         "Swipeable"
-    ]
+    ],
+    "eslint.options": {
+        "rules": {
+          "quotes": [2, "double"]
+        }
+      }
 }

@@ -1,5 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react'
-import { StyleSheet, Text, View } from 'react-native';
+import React, {  } from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import TabNavigation from './TabNavigation';
@@ -11,16 +10,19 @@ const Stack = createStackNavigator();
 
 export default function Navigation() {
 
-const {isLoggedIn, setIsLoggedIn, setToken} = useLogin()
+            /*  Main Navigation between Login/Signup screen and to Main
+            application once user is authenticated from the backend */
+
+// Use context to check the login status - true or false
+const {isLoggedIn} = useLogin()
+
   return (
     <NavigationContainer>
+      {/* Logged in users navigates to Main App via "Tab Navigation"*/}
       <Stack.Navigator>
         {isLoggedIn ? (
-          <Stack.Screen
-            name="Home"
-            component={TabNavigation}
-            options={{ title: 'Awesome Expense App' }}
-          />
+          <Stack.Screen name="Home" component={TabNavigation} 
+            options={{ title: 'Awesome Expense App' }}/>
         ) : (
           <>
             <Stack.Screen name="Login" component={LoginScreen} />
@@ -31,23 +33,4 @@ const {isLoggedIn, setIsLoggedIn, setToken} = useLogin()
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    whiteText: {
-      color:"white",
-      fontSize:30
-      },
-      containerCenter: {
-      flex: 1,
-      backgroundColor: 'black',
-      alignItems: 'center',
-      justifyContent: 'center',
-      },
-  });
   
