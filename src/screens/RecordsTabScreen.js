@@ -19,7 +19,7 @@ export default ({navigation}) => {
     // const [backgroundColor, setBackgroundColor] = useState('red');
     // const [type, setType] = useState('expense')
     const [visible, setVisible] = useState(false);
-    const [message, setMessage] = useState("")
+    const [message, setMessage] = useState([])
     const [transactionData, setTransactionData] = useState([]);
     const [refreshStatus, setRefreshStatus] = useState(false);
 
@@ -58,7 +58,7 @@ export default ({navigation}) => {
           date={item.date}    
           callback={(response, action) => {
           // To display message on adding a expense or income record
-          setMessage(item.description + response);
+          setMessage([item.description + response]);
           setVisible(true);
           // to refresh the records on adding any new transaction
           setRefreshStatus(action);

@@ -1,10 +1,38 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
+// Function to push data for new registration of users
+const userRegistrationHTTP =  async (name,email,password) => {
+  const response = await (fetch('http://localhost:8000/v1/user/', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        username: name,
+        email: email,
+        password: password
+    })
+  }));
+
+  try{ if (!response.ok) {
+      const data = await response.json();
+      console.log("Backend error :", data);
+      return { error: data.detail };
+    } else {
+    // To make the expense/income first letter uppercase for better presentation
+    const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
+    return { status: `${capitalizedName} has successfully registered` };
+  }
+  } catch (error) {
+    console.log("Registration Backend Error:", error);
+    return { error };
+  }
+}
+
 const fetchJWT = (username, password, setIsLoggedIn) => {
 
-    //**Step:2 => Fetching the JSON Token from server to establish secure connection */
-  
+    //Fetching the JSON Token from server to establish secure connection */
      fetch('http://localhost:8000/v1/login', {
       method: 'POST',
       headers: {
@@ -32,20 +60,15 @@ const fetchJWT = (username, password, setIsLoggedIn) => {
           {
             response.json().then(data => {
   
-              // Making the loggedin to true and passing the token data for further use
-              // setIsLoggedIn(true)
-              // setToken(data.access_token)
               // Store the token using AsyncStorage
               AsyncStorage.setItem('token', data.access_token);
-              // Keychain.setGenericPassword(username, data.access_token);
-              // const credentials =  Keychain.getGenericPassword();
-              // console.log("credentials from keychain", credentials)
+              // Setting the "setIsLoggedIn" context variable to true
               setIsLoggedIn(true)
               
             })
-              // .catch(error => {
-              //   console.log(error)   
-              // })
+              .catch(error => {
+                console.log(error)   
+              })
           }
         });
       }
@@ -82,6 +105,7 @@ const fetchTransactionsHTTP = async () => {
     return parkedData
   }
 
+  // To fetch the  transaction data from backend using async/await
   const fetchData = async (setTransactionData,setRefreshStatus ) => {
     const data = await fetchTransactionsHTTP();
     // To store the data fetched from back end
@@ -98,7 +122,6 @@ const fetchTransactionsHTTP = async () => {
     try {
       // Retrieve the token from AsyncStorage
       const token = await AsyncStorage.getItem('token');
-
       const response = await fetch('http://localhost:8000/v1/expense/', {
         method: 'POST',
         headers: {
@@ -132,6 +155,7 @@ const fetchTransactionsHTTP = async () => {
     }
   }
 
+  // To logout the user from application
   const appLogout = async (setIsLoggedIn) => {
     // To delete token stored in application database
     await AsyncStorage.removeItem('token');
@@ -139,4 +163,5 @@ const fetchTransactionsHTTP = async () => {
     setIsLoggedIn(false);
   }
 
-  export { fetchTransactionsHTTP, insertTransactionHTTP, fetchJWT, fetchData, appLogout };
+  // Exporting the HTTP based function
+  export { userRegistrationHTTP ,fetchTransactionsHTTP, insertTransactionHTTP, fetchJWT, fetchData, appLogout };

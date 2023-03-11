@@ -21,14 +21,14 @@ export default () => {
     const [backgroundColor, setBackgroundColor] = useState('red');
     const [type, setType] = useState('expense')
     const [visible, setVisible] = useState(false);
-    const [message, setMessage] = useState("")
+    const [message, setMessage] = useState([])
 
     
     // To post data to back end and show error/success alerts (if any)
     const savePress = async () => {
         // Checks that calender input is null
         if (selectedDate == null){
-          setMessage("Please select the date"),
+          setMessage(["Please select the date"]),
           setVisible(true)
           return
         }
@@ -37,10 +37,10 @@ export default () => {
 
         // Handing the responses
         if (result.error) {
-          setMessage(result.error);
+          setMessage([result.error]);
           setVisible(true);
         } else if (result.message) {
-          setMessage(result.message);
+          setMessage([result.message]);
           setVisible(true);
           setValue("")
           setDesc("")
@@ -50,7 +50,7 @@ export default () => {
     // Function to check the input provided by the user for english only
     const handleDescInput = (text) => {
         // Regular expression to match English letters
-        const englishLetters = /^[a-zA-Z\s]*$/;
+        const englishLetters = /^[a-zA-Z][a-zA-Z\s]*$/;
         if (text.match(englishLetters)) {
             setDesc(text);
         } else {
