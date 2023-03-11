@@ -50,10 +50,6 @@ const Transaction = ({title, amount, id, date , callback}) => {
       );
     };
   
-    // const swipeFromRightOpen = () => {
-    //   alert('Swipe from right' + id);
-    // };
-
     // To get the date in a DD/MM/YYY format using built-in constructor function in JavaScript
     const formattedDate = new Date(date).toLocaleDateString('en-GB'); // 'DD/MM/YYY'
   
