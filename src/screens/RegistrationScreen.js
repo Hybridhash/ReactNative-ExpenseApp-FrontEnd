@@ -4,8 +4,8 @@ import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { registrationImage } from '../../assets';
 import { emailValidator, nameValidator, passwordValidator, passConfirmValidator, passMatchValidator} from '../../utilities/validator';
-import App from './HomepageScreen';
-//import axios from 'axios';
+import AlertMessage from '../components/AlertMessage';
+import { userRegistrationHTTP } from '../../utilities/http';
 
 export default function RegistrationScreen({navigation}) {
 
@@ -14,18 +14,18 @@ const [email, setEmail] = useState('')
 const [password, setPassword] = useState('')
 const [name, setName] = useState('')
 const [confirmPassword, setConfirmPassword] = useState('')
+const [visible, setVisible] = useState(false);
+const [message, setMessage] = useState([]);
+const [route, setRoute] = useState(false);
  
-
-
-
 const loginPress = () => {
     //Navigate to the login page
     navigation.navigate('Login')
 }
 
-const signupPress = () => {
+const signupPress = async () => {
     
-    //**Step:1 => Validate the input provided by users before inserting into database */
+    //** Validate the input provided by users before inserting into database */
 
     //Validating different inputs provided by the users on signup page
     const emailError = emailValidator(email)
@@ -33,60 +33,46 @@ const signupPress = () => {
     const passwordError = passwordValidator(password)
     const passConfirmError = passConfirmValidator(confirmPassword)
     const passMismatchError = passMatchValidator(password, confirmPassword)
-    //To show all errors encountered during the signup process
+    
+    //Array to show all errors encountered during the signup process
     const errorDisplay = []
     
     if (nameError || emailError || passwordError || passConfirmError || passMismatchError) {
       
-      errorDisplay.push(passwordError)
-      errorDisplay.push(nameError)
-      errorDisplay.push(emailError)
-      errorDisplay.push(passConfirmError)
-      errorDisplay.push(passMismatchError)
-
-      for(let i = 0; i < errorDisplay.length; i++){
-        if (errorDisplay[i] !== "")
-        alert(errorDisplay[i])
-      }
-
+      const errors = [nameError, emailError, passwordError, passConfirmError, passMismatchError];
+      const errorDisplay = errors.filter(error => error);
+      setVisible(true);
+      setMessage(errorDisplay)
       return
     }
         
     
-    //**Step:2 => Inserting user inputs to database and return errors (if any) */
-
-        fetch('http://localhost:8000/v1/user/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            username: name,
-            email: email,
-            password: password
-        })
-    })
-        .then(response => {
-          //Checking the status for the bad response
-          if (response.ok == false)
-          {response.json()
-            .then(data => {
-              // Alerting the user on the state of the error encountered from backend
-              console.log(data)
-              alert(data.detail)
-              //console.log('response:', response.status)
-            })
-              .catch(error => {
-                console.log(error)   
-              })
-          }
-        else if (response.ok)
-    
-         navigation &&  navigation.navigate('Login')
-    });
+    // Getting the response on submitting the user inputs to database and return errors (if any) */
+    const result = await userRegistrationHTTP(name,email,password)
+    // Handing the responses
+    if (result.error) {
+      setMessage([result.error]);
+      setVisible(true);
+    } else if (result.status) {
+      setMessage([result.status]);
+      setRoute(true);
+      setVisible(true);
+    }
+};
 
 
-}    
+// Function to handle to open and close for alerts
+const handleAlterClose = () => {
+  // Set Visible to close on clicking the close button on modal
+  setVisible(false);
+  /*  Since, AlertMessage has dual use, therefore, condition is implemented
+      for navigation.*/
+  if (route == true){
+    setRoute(false);
+    navigation &&  navigation.navigate('Login')
+  }
+};
+
 
   return (
     <View style={styles.container}>
@@ -133,31 +119,30 @@ const signupPress = () => {
     </View>
     
     <View style={styles.bottom}>
-    <Text style={styles.text}> Already have account</Text>
-    <TouchableOpacity onPress={() => loginPress()}>
-        <View style={styles.button}>
-                <Text style={styles.buttonText}>
-                Login
-                </Text>
-            </View>
-    </TouchableOpacity>
+     <Text style={styles.text}> Already have account</Text>
+      <TouchableOpacity onPress={() => loginPress()}>
+          <View style={styles.button}>
+                  <Text style={styles.buttonText}>
+                  Login
+                  </Text>
+              </View>
+      </TouchableOpacity>
     </View>
-    </View>
- 
 
+    <AlertMessage message={message} visible={visible} onClose={handleAlterClose} /> 
+    </View>
   );
 }
 
+// Styling for the registration page
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#B8CFD1',
-    //alignItems: 'center',
     justifyContent: 'space-between',
     padding: 20,
     margin:10,
   },
-
   inputBox: {
     height: 50,
     borderRadius: 10,
@@ -167,17 +152,12 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     marginLeft: 30,
     marginRight: 30,
-    //paddingLeft: 16,
     fontSize: 22,
     fontWeight: '400',
-    //fontColor: 'red',
     textAlign: 'center'
-   
-},
-
+  },
    top: {
     flex: 0.40,
-    //backgroundColor: 'grey',
     borderWidth: 0,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -185,21 +165,17 @@ const styles = StyleSheet.create({
   middle: {
     flex: 0.45,
     backgroundColor: 'white',
-    //borderWidth: 2,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
     paddingTop:20
-    
   },
   bottom: {
     flex: 0.10,
-    //backgroundColor: 'pink',
     borderWidth: 0,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
-    //marginTop
   },
 
   button: {
@@ -210,7 +186,6 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     width: "35%",
     alignSelf:'center', 
-    //position:'absolute',
     top:10,
     right: 0,
     bottom:0,
@@ -222,16 +197,11 @@ const styles = StyleSheet.create({
     alignSelf:'center',
     fontWeight:'bold'
   },
-
   text: {
     color:"black",
     fontSize: 20,
     alignSelf:'center',
     fontWeight:'bold',
-    //marginTop:0
+ 
   },
-
-
-
-
 });

@@ -3,29 +3,58 @@ import { Swipeable } from 'react-native-gesture-handler';
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import AlertMessage from '../components/AlertMessage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const deletePress = (id, callback) => {
+  // console.log('deletePress' ,id )
+  deleteHTTP(id, (message, action) => {
+    callback(message,action)
+  });
+}
+
+const deleteHTTP = async (id, callback) => {
+  //Fetching the JSON Token from server to establish secure connection */
+    try { const token = await AsyncStorage.getItem('token');
+          const response = await fetch(`http://localhost:8000/v1/delete_transaction/${id}`, {
+            method: 'DELETE',
+            headers: {
+              'accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer '+token,
+            }
+          });
+          if (!response.ok) {
+            const data = await response.json();
+            // Alerting the user on the state of the error encountered from backend
+            console.log(data);
+            alert(data.detail);
+          } else {
+            const data = await response.json();
+            console.log(data);
+            callback(" is deleted successfully",true)
+          }
+        }catch (error) {
+          console.error(error);
+        }
+}
 
 
-const Transaction = ({title, amount, id, date}) => {
+const Transaction = ({title, amount, id, date , callback}) => {
   
     const rightSwipeActions = () => {
       return (
-            <TouchableOpacity style={styles.deleteButton}>
+            <TouchableOpacity style={styles.deleteButton} onPress={() => deletePress(id, (message,action)=>
+            callback(message,action))}>
                 <Text style={styles.deleteInnerText}>Delete</Text>
             </TouchableOpacity>
       );
     };
   
-    const swipeFromRightOpen = () => {
-      alert('Swipe from right' + id);
-    };
-
     // To get the date in a DD/MM/YYY format using built-in constructor function in JavaScript
     const formattedDate = new Date(date).toLocaleDateString('en-GB'); // 'DD/MM/YYY'
   
     return(
-      <Swipeable 
-      renderRightActions={rightSwipeActions}
-      onSwipeableRightOpen={swipeFromRightOpen}> 
+      <Swipeable renderRightActions={rightSwipeActions}> 
             <View style={styles.item}>
                  <View style={{  flexDirection: 'row' , justifyContent: 'space-between',}}>
                     <Text style={styles.innerText}>{title}</Text>
@@ -34,6 +63,7 @@ const Transaction = ({title, amount, id, date}) => {
                 <Text style={styles.dateText}> Transaction date: {formattedDate}</Text>
             </View>
       </Swipeable>
+      
     );
   }
 

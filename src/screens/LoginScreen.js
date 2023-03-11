@@ -1,96 +1,58 @@
 
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View, Image,  } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { loginImage } from '../../assets';
 import { nameValidator, passwordValidator } from '../../utilities/validator';
-import { useLogin } from '../../App';
+import { useLogin } from '../context/LoginContext';
+import { fetchJWT } from '../../utilities/http';
 import AlertMessage from '../components/AlertMessage';
 
+
 export default function LoginScreen({navigation}) {
-
-
-const {setIsLoggedIn, setToken} = useLogin()
 
 //States to hold the user password and email provided by user 
 const [username, setUserName] = useState('')
 const [password, setPassword] = useState('')
+const [visible, setVisible] = useState(false);
+const [message, setMessage] = useState([])
 
-// Action to perform on pressing the signup button
+// Context to setIsLoggedIn to "true"
+const {setIsLoggedIn, setToken} = useLogin()
+
+
+// Navigation to signup screen
 const signupPress = () => {
     navigation.navigate('Registration')
 }
 
 // Action to perform on pressing the login button
 const loginPress = () => {
-    console.log("login button pressed")
-
-    //**Step:1 => Validate the users input before calling the server */
 
     //Validating different inputs provided by the users for login
     const usernameError = nameValidator(username)
     const passwordError = passwordValidator(password)
 
-    //To show all errors encountered during the signup process
+    //To show all errors encountered during the login process
     const errorDisplay = []
     
     if (usernameError || passwordError ) {
       
       errorDisplay.push(passwordError)
       errorDisplay.push(usernameError)
-
-      //Looping over the list of error and displaying it for user to address
-      for(let i = 0; i < errorDisplay.length; i++){
-        if (errorDisplay[i] !== "")
-        alert(errorDisplay[i])
-      }
+      // State variable to show modal for errors
+      setVisible(true);
+      setMessage(errorDisplay)
       return
     }
+    // Calling function in HTTP to setIsLoggedIn to "true"
+    fetchJWT(username,password,setIsLoggedIn) 
+}
 
-    //**Step:2 => Fetching the JSON Token from server to establish secure connection */
-
-        fetch('http://localhost:8000/v1/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-          body: JSON.stringify({
-              username: username,
-              password: password
-          })
-        })
-        .then(response => {
-          //Checking the status for the bad response
-          if (response.ok == false)
-          {response.json()
-            .then(data => {
-              // Alerting the user on the state of the error encountered from backend
-              console.log(data)
-              alert(data.detail)
-            })
-              .catch(error => {
-                console.log(error)   
-              })
-          }
-        else if (response.ok)
-          {
-            response.json().then(data => {
-   
-              // Making the loggedin to true and passing the token data for further use
-              setIsLoggedIn(true)
-              setToken(data.access_token)
-              
-       
-              
-            })
-              // .catch(error => {
-              //   console.log(error)   
-              // })
-          }
-         
-
-    });
-}    
+// Function to handle to open and close for alerts
+const handleAlterClose = () => {
+    setVisible(false);
+  };
 
   return (
     <View style={styles.container}>
@@ -130,6 +92,7 @@ const loginPress = () => {
                 </View>
             </TouchableOpacity>
       </View>
+      <AlertMessage message={message} visible={visible} onClose={handleAlterClose} /> 
     </View>
   );
 }
@@ -138,12 +101,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#B8CFD1',
-    //alignItems: 'center',
     justifyContent: 'space-between',
     padding: 20,
     margin:10,
   },
-
   inputBox: {
     height: 50,
     borderRadius: 10,
@@ -153,16 +114,12 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     marginLeft: 30,
     marginRight: 30,
-    //paddingLeft: 16,
     fontSize: 22,
     fontWeight: '400',
     textAlign: 'center'
-   
-},
-
+  },
    top: {
     flex: 0.40,
-    //backgroundColor: 'grey',
     borderWidth: 0,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -170,7 +127,6 @@ const styles = StyleSheet.create({
   middle: {
     flex: 0.30,
     backgroundColor: 'white',
-    //borderWidth: 2,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     borderBottomLeftRadius: 25,
@@ -179,7 +135,6 @@ const styles = StyleSheet.create({
   },
   bottom: {
     flex: 0.25,
-    //backgroundColor: 'pink',
     borderWidth: 0,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
@@ -193,7 +148,6 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     width: "35%",
     alignSelf:'center', 
-    //position:'absolute',
     top:10,
     right: 0,
     bottom:0,

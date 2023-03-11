@@ -1,17 +1,18 @@
 
-import React, { useState } from 'react'
+import React, { useState} from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, SafeAreaView} from 'react-native';
 import CalendarPicker from 'react-native-calendar-picker';
-import { useLogin } from '../../App';
 import AlertMessage from '../components/AlertMessage';
+import { insertTransactionHTTP } from '../../utilities/http';
 
 
 export default () => {
 
-          /*  Inserting a expense data to backend, missing field information is managed 
-            from the back end (such as description, data or calender is missing in the 
-            data sent to server). However, to get the value in digits and description 
-            should be in english */
+          /*  - Inserting a expense data to backend, missing field apart from calender is managed 
+            from the back end (such as description and amount). 
+            - Custom Message modal is used to showing the response on successful/failed attempt
+            - Custom functions are provided to ensure description should be in english and 
+              amount should be in digits (round to zero) */
        
     // States to hold data related to add screen
     const [value, setValue] = useState(0);
@@ -20,74 +21,36 @@ export default () => {
     const [backgroundColor, setBackgroundColor] = useState('red');
     const [type, setType] = useState('expense')
     const [visible, setVisible] = useState(false);
-    const [message, setMessage] = useState("")
+    const [message, setMessage] = useState([])
 
-    // Taking token to be passed for post requests to  backend
-    const {token} = useLogin()
-    
-    // Function to handle to open and close for alerts
-    const handleAlterClose = () => {
-        setVisible(false);
-      };
     
     // To post data to back end and show error/success alerts (if any)
-    const savePress = () => {
-        
-        
-        // Checking `type` variable and changing the amount between positive or negative
-        const amount = type === 'expense' ? value * -1 : value;
-        console.log('Token value: ', 'Bearer '+token);
-        fetch('http://localhost:8000/v1/expense/', {
-        method: 'POST',
-        headers: {
-            'accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+token,
-            
-        },
-          body: JSON.stringify({
-              amount: amount,
-              description: desc,
-              date:selectedDate,
+    const savePress = async () => {
+        // Checks that calender input is null
+        if (selectedDate == null){
+          setMessage(["Please select the date"]),
+          setVisible(true)
+          return
+        }
+        // Get the result from back end -  success/failure
+        const result = await insertTransactionHTTP( type, value, desc, selectedDate);
 
-          })
-        })
-        .then(response => {
-          //Checking the status for the bad response
-          if (response.ok == false)
-          {response.json()
-            .then(data => {
-              // Alerting the user on the state of the error encountered from backend
-              console.log("Add Transaction Screen:  Error from backend for expense Post and altering user: ", data)
-              alert(data.detail)
-            })
-              .catch(error => {
-                console.log(" Error from backend for expense Post: ", error)   
-              })
-          }
-        else if (response.ok)
-          {  
-            response.json().then(data => {
-                // To make the expense/income first letter uppercase
-                const capitalizedType = type.charAt(0).toUpperCase() + type.slice(1);
-                // Message to be shown on successful submission to back end
-                setMessage(`${desc} successfully added for value of ${data.amount} as ${capitalizedType}`)
-                setVisible(true);
-                console.log("Add Transaction Screen:  Success from backend for expense Post and altering user: ", data)
-                setValue("")
-                setDesc("")
-            })
-          }
-        }); 
+        // Handing the responses
+        if (result.error) {
+          setMessage([result.error]);
+          setVisible(true);
+        } else if (result.message) {
+          setMessage([result.message]);
+          setVisible(true);
+          setValue("")
+          setDesc("")
+        }
     };
 
-    //Getting date in 'YYYY-MM-DD' format
-    const startDate = selectedDate ? selectedDate.format('YYYY-MM-DD').toString() : '';
-
-    // To check the input provided by the user for english only
+    // Function to check the input provided by the user for english only
     const handleDescInput = (text) => {
         // Regular expression to match English letters
-        const englishLetters = /^[a-zA-Z\s]*$/;
+        const englishLetters = /^[a-zA-Z][a-zA-Z\s]*$/;
         if (text.match(englishLetters)) {
             setDesc(text);
         } else {
@@ -95,7 +58,7 @@ export default () => {
         }
       };
     
-    // To check the input provided by the user for digits only
+    // Function to check the input provided by the user for digits only
     const handleValueInput = (value) => {
         // Regular expression to match digits
         const digits = /^[+]?[0-9]*$/;
@@ -104,12 +67,18 @@ export default () => {
         } else {setValue("")} 
     };
 
-    // To handle transaction type and change button colour for expense and income
+    // Function to handle transaction type and change button colour for expense and income
     const handleTransactionType = () => {
         setBackgroundColor(backgroundColor === 'green' ? 'red' : 'green');
         setType(type === 'expense' ? 'income' : 'expense');
       };
 
+    // Function to handle to open and close for alerts
+    const handleAlterClose = () => {
+      setVisible(false);
+    };
+    
+    // To check the input provided by the user for date
 
     //Returning the components of add screen
     return (
@@ -144,7 +113,8 @@ export default () => {
                     <CalendarPicker  width = {390} 
                     selectedDayColor="#4455BB"  
                     selectedDayTextColor="#FFFFFF"
-                    onDateChange={setSelectedDate}/>
+                    onDateChange={setSelectedDate}
+                    />
                 </View>
 
                 <TouchableOpacity onPress={() => savePress()}>
@@ -152,31 +122,19 @@ export default () => {
                             <Text style={styles.buttonText}>Save</Text>
                     </View>
                 </TouchableOpacity>
-
-                <AlertMessage message={message} visible={visible} onClose={handleAlterClose} />
-                
+                <AlertMessage message={message} visible={visible} onClose={handleAlterClose} /> 
             </SafeAreaView>
         </View>
-        
-
     );
   }
 
 
-// Styling for the add screen
+// Styling for the add transactions screen
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#B8CFD1',
         },
-
-    containerCenter: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-        },
-
     text: {
         color:"black",
         fontSize: 20,
@@ -184,7 +142,6 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         marginTop:20
       },
-
     inputBox: {
         height: 50,
         borderRadius: 20,
@@ -226,35 +183,10 @@ const styles = StyleSheet.create({
         bottom:0,
         backgroundColor:'#4455BB',
       },
-
-    background:{
-        backgroundColor:'green',
-    },
-
     buttonText: {
         color:"#FFFFFF",
         fontSize: 20,
         alignSelf:'center',
         fontWeight:'bold'
     },
-
-    container1: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-      btnNormal: {
-        borderColor: 'blue',
-        borderWidth: 1,
-        borderRadius: 10,
-        height: 30,
-        width: 100,
-      },
-      btnPress: {
-        borderColor: 'blue',
-        borderWidth: 1,
-        borderRadius: 10,
-        height: 30,
-        width: 100,
-      }
 });

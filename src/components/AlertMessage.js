@@ -11,7 +11,9 @@ const AlertMessage = ({ message, visible, onClose }) => {
     >
       <View style={styles.container}>
         <View style={styles.innerContainer}>
-          <Text style={styles.message}>{message}</Text>
+          {message.map((msg, index) => (
+            <Text key={index} style={styles.message}>{msg}</Text>
+          ))}
           <TouchableOpacity onPress={onClose}>
             <Text style={styles.button}>Close</Text>
           </TouchableOpacity>
