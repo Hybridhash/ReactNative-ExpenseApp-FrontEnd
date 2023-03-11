@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Transaction display  Component renders component correctly 1`] = `
+<View
+  collapsable={false}
+  forwardedRef={[Function]}
+  handlerTag={1}
+  handlerType="PanGestureHandler"
+  onGestureHandlerEvent={[Function]}
+  onGestureHandlerStateChange={[Function]}
+  onLayout={[Function]}
+  style={
+    {
+      "overflow": "hidden",
+    }
+  }
+>
+  <View
+    collapsable={false}
+    style={
+      {
+        "bottom": 0,
+        "flexDirection": "row-reverse",
+        "left": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+        "transform": [
+          {
+            "translateX": -10000,
+          },
+        ],
+      }
+    }
+  >
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "backgroundColor": "#ff8303",
+          "borderRadius": 10,
+          "justifyContent": "center",
+          "marginVertical": 6,
+          "opacity": 1,
+          "paddingHorizontal": 30,
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "color": "#1b1a17",
+            "fontSize": 20,
+            "fontWeight": "bold",
+          }
+        }
+      >
+        Delete
+      </Text>
+    </View>
+    <View
+      onLayout={[Function]}
+    />
+  </View>
+  <View
+    collapsable={false}
+    forwardedRef={[Function]}
+    handlerTag={2}
+    handlerType="TapGestureHandler"
+    onGestureHandlerEvent={[Function]}
+    onGestureHandlerStateChange={[Function]}
+    pointerEvents="auto"
+    style={
+      {
+        "transform": [
+          {
+            "translateX": -0,
+          },
+        ],
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "backgroundColor": "#4455BB",
+          "borderColor": "#4455BB",
+          "borderRadius": 10,
+          "borderWidth": 3,
+          "flexDirection": "column",
+          "justifyContent": "space-between",
+          "marginHorizontal": 16,
+          "marginVertical": 8,
+          "padding": 10,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "color": "#FFFFFF",
+              "fontSize": 20,
+              "fontWeight": "bold",
+            }
+          }
+        >
+          Test title
+        </Text>
+        <Text
+          style={
+            {
+              "color": "#FFFFFF",
+              "fontSize": 20,
+              "fontWeight": "bold",
+            }
+          }
+        >
+          Test amount
+        </Text>
+      </View>
+      <Text
+        style={
+          {
+            "alignSelf": "center",
+            "color": "#D3D3D3",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "marginTop": 5,
+          }
+        }
+      >
+         Transaction date: 
+        Invalid Date
+      </Text>
+    </View>
+  </View>
+</View>
+`;

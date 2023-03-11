@@ -1,0 +1,465 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginScreen renders Login Screen Component correctly 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": "#B8CFD1",
+      "flex": 1,
+      "justifyContent": "space-between",
+      "margin": 10,
+      "padding": 20,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "borderTopLeftRadius": 20,
+        "borderTopRightRadius": 20,
+        "borderWidth": 0,
+        "flex": 0.4,
+      }
+    }
+  >
+    <Image
+      source={1}
+      style={
+        {
+          "borderRadius": 30,
+          "height": "100%",
+          "width": "100%",
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      {
+        "backgroundColor": "white",
+        "borderBottomLeftRadius": 25,
+        "borderBottomRightRadius": 25,
+        "borderTopLeftRadius": 25,
+        "borderTopRightRadius": 25,
+        "flex": 0.3,
+        "paddingTop": 20,
+      }
+    }
+  >
+    <TextInput
+      autoCapitalize="none"
+      collapsable={false}
+      handlerTag={1}
+      handlerType="NativeViewGestureHandler"
+      onChangeText={[Function]}
+      onGestureHandlerEvent={[Function]}
+      onGestureHandlerStateChange={[Function]}
+      placeholder="Username"
+      placeholderTextColor="grey"
+      style={
+        {
+          "backgroundColor": "#C0C7CE",
+          "borderRadius": 10,
+          "fontSize": 22,
+          "fontWeight": "400",
+          "height": 50,
+          "marginBottom": 5,
+          "marginLeft": 30,
+          "marginRight": 30,
+          "marginTop": 10,
+          "overflow": "hidden",
+          "textAlign": "center",
+        }
+      }
+      value=""
+    />
+    <TextInput
+      autoCapitalize="none"
+      collapsable={false}
+      handlerTag={2}
+      handlerType="NativeViewGestureHandler"
+      onChangeText={[Function]}
+      onGestureHandlerEvent={[Function]}
+      onGestureHandlerStateChange={[Function]}
+      placeholder="Password"
+      placeholderTextColor="grey"
+      secureTextEntry={true}
+      style={
+        {
+          "backgroundColor": "#C0C7CE",
+          "borderRadius": 10,
+          "fontSize": 22,
+          "fontWeight": "400",
+          "height": 50,
+          "marginBottom": 5,
+          "marginLeft": 30,
+          "marginRight": 30,
+          "marginTop": 10,
+          "overflow": "hidden",
+          "textAlign": "center",
+        }
+      }
+      value=""
+    />
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignSelf": "center",
+            "backgroundColor": "#4455BB",
+            "borderColor": "#4455BB",
+            "borderRadius": 70,
+            "borderWidth": 3,
+            "bottom": 0,
+            "paddingBottom": 5,
+            "paddingTop": 5,
+            "right": 0,
+            "top": 10,
+            "width": "35%",
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "alignSelf": "center",
+              "color": "#FFFFFF",
+              "fontSize": 20,
+              "fontWeight": "bold",
+            }
+          }
+        >
+          Login
+        </Text>
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "borderBottomLeftRadius": 20,
+        "borderBottomRightRadius": 20,
+        "borderWidth": 0,
+        "flex": 0.25,
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "alignSelf": "center",
+          "color": "black",
+          "fontSize": 20,
+          "fontWeight": "bold",
+          "marginTop": 20,
+        }
+      }
+    >
+       Don't have account
+    </Text>
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignSelf": "center",
+            "backgroundColor": "#4455BB",
+            "borderColor": "#4455BB",
+            "borderRadius": 70,
+            "borderWidth": 3,
+            "bottom": 0,
+            "paddingBottom": 5,
+            "paddingTop": 5,
+            "right": 0,
+            "top": 10,
+            "width": "35%",
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "alignSelf": "center",
+              "color": "#FFFFFF",
+              "fontSize": 20,
+              "fontWeight": "bold",
+            }
+          }
+        >
+          Signup
+        </Text>
+      </View>
+    </View>
+  </View>
+  <Modal
+    animationType="fade"
+    hardwareAccelerated={false}
+    onRequestClose={[Function]}
+    transparent={true}
+    visible={false}
+  />
+</View>
+`;
+
+exports[`renders login page correctly 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": "#B8CFD1",
+      "flex": 1,
+      "justifyContent": "space-between",
+      "margin": 10,
+      "padding": 20,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "borderTopLeftRadius": 20,
+        "borderTopRightRadius": 20,
+        "borderWidth": 0,
+        "flex": 0.4,
+      }
+    }
+  >
+    <Image
+      source={1}
+      style={
+        {
+          "borderRadius": 30,
+          "height": "100%",
+          "width": "100%",
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      {
+        "backgroundColor": "white",
+        "borderBottomLeftRadius": 25,
+        "borderBottomRightRadius": 25,
+        "borderTopLeftRadius": 25,
+        "borderTopRightRadius": 25,
+        "flex": 0.3,
+        "paddingTop": 20,
+      }
+    }
+  >
+    <TextInput
+      autoCapitalize="none"
+      collapsable={false}
+      handlerTag={1}
+      handlerType="NativeViewGestureHandler"
+      onChangeText={[Function]}
+      onGestureHandlerEvent={[Function]}
+      onGestureHandlerStateChange={[Function]}
+      placeholder="Username"
+      placeholderTextColor="grey"
+      style={
+        {
+          "backgroundColor": "#C0C7CE",
+          "borderRadius": 10,
+          "fontSize": 22,
+          "fontWeight": "400",
+          "height": 50,
+          "marginBottom": 5,
+          "marginLeft": 30,
+          "marginRight": 30,
+          "marginTop": 10,
+          "overflow": "hidden",
+          "textAlign": "center",
+        }
+      }
+      value=""
+    />
+    <TextInput
+      autoCapitalize="none"
+      collapsable={false}
+      handlerTag={2}
+      handlerType="NativeViewGestureHandler"
+      onChangeText={[Function]}
+      onGestureHandlerEvent={[Function]}
+      onGestureHandlerStateChange={[Function]}
+      placeholder="Password"
+      placeholderTextColor="grey"
+      secureTextEntry={true}
+      style={
+        {
+          "backgroundColor": "#C0C7CE",
+          "borderRadius": 10,
+          "fontSize": 22,
+          "fontWeight": "400",
+          "height": 50,
+          "marginBottom": 5,
+          "marginLeft": 30,
+          "marginRight": 30,
+          "marginTop": 10,
+          "overflow": "hidden",
+          "textAlign": "center",
+        }
+      }
+      value=""
+    />
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignSelf": "center",
+            "backgroundColor": "#4455BB",
+            "borderColor": "#4455BB",
+            "borderRadius": 70,
+            "borderWidth": 3,
+            "bottom": 0,
+            "paddingBottom": 5,
+            "paddingTop": 5,
+            "right": 0,
+            "top": 10,
+            "width": "35%",
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "alignSelf": "center",
+              "color": "#FFFFFF",
+              "fontSize": 20,
+              "fontWeight": "bold",
+            }
+          }
+        >
+          Login
+        </Text>
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "borderBottomLeftRadius": 20,
+        "borderBottomRightRadius": 20,
+        "borderWidth": 0,
+        "flex": 0.25,
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "alignSelf": "center",
+          "color": "black",
+          "fontSize": 20,
+          "fontWeight": "bold",
+          "marginTop": 20,
+        }
+      }
+    >
+       Don't have account
+    </Text>
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignSelf": "center",
+            "backgroundColor": "#4455BB",
+            "borderColor": "#4455BB",
+            "borderRadius": 70,
+            "borderWidth": 3,
+            "bottom": 0,
+            "paddingBottom": 5,
+            "paddingTop": 5,
+            "right": 0,
+            "top": 10,
+            "width": "35%",
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "alignSelf": "center",
+              "color": "#FFFFFF",
+              "fontSize": 20,
+              "fontWeight": "bold",
+            }
+          }
+        >
+          Signup
+        </Text>
+      </View>
+    </View>
+  </View>
+  <Modal
+    animationType="fade"
+    hardwareAccelerated={false}
+    onRequestClose={[Function]}
+    transparent={true}
+    visible={false}
+  />
+</View>
+`;
