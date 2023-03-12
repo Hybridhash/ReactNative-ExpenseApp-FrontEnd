@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 
 export default function Navigation() {
   /*  Main Navigation between Login/Signup screen and to Main
-            application once user is authenticated from the backend */
+      application once user is authenticated from the backend */
 
   // Use context to check the login status - true or false
   const {isLoggedIn} = useLogin();

@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Modal, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import PropTypes from 'prop-types';
 
 const AlertMessage = ({message, visible, onClose}) => {
   return (
@@ -21,6 +22,12 @@ const AlertMessage = ({message, visible, onClose}) => {
       </View>
     </Modal>
   );
+};
+
+AlertMessage.propTypes = {
+  message: PropTypes.array.isRequired,
+  visible: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({

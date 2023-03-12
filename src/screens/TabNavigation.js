@@ -13,7 +13,7 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   /* This is used for Navigation between different tabs once user is
-          authenticated from backend. There are four tabs in application.*/
+     authenticated from backend. There are four tabs in application.*/
 
   return (
     <Tab.Navigator screenOptions={{headerShown: false, tabBarStyle: {position: 'absolute'},

@@ -17,7 +17,7 @@ export default function LoginScreen({navigation}) {
   const [message, setMessage] = useState([]);
 
   // Context to setIsLoggedIn to "true"
-  const {setIsLoggedIn, setToken} = useLogin();
+  const {setIsLoggedIn} = useLogin();
 
 
   // Navigation to signup screen
@@ -89,7 +89,8 @@ export default function LoginScreen({navigation}) {
           </View>
         </TouchableOpacity>
       </View>
-      <AlertMessage message={message} visible={visible} onClose={handleAlterClose} />
+      <AlertMessage message={message} visible={visible}
+        onClose={handleAlterClose} />
     </View>
   );
 }
@@ -156,7 +157,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: 'bold',
   },
-
   text: {
     color: 'black',
     fontSize: 20,

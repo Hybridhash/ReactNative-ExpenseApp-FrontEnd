@@ -7,8 +7,8 @@ import {LineChart} from 'react-native-chart-kit';
 
 export default ({navigation}) => {
   /*  - Fetching data from backend to show total income and expenses incurred.
-              - Shows the transactions incurred during last one week.
-              - Data is transformed first before showing it to the screen*/
+      - Shows the transactions incurred during last one week.
+      - Data is transformed first before showing it to the screen*/
 
   // States to hold data related to add screen
   const [transactionData, setTransactionData] = useState([]);
@@ -38,7 +38,7 @@ export default ({navigation}) => {
   const expense = (amounts.filter((item) => item < 0).reduce((acc, item) => (acc += item), 0)) * -1;
 
 
-  // Getting the list of transactions for last one week  - Starting today
+  // Get list of transactions for last one week- Starting today
   const oneWeekAgo = new Date();
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
@@ -47,8 +47,8 @@ export default ({navigation}) => {
     return transactionDate >= oneWeekAgo && transaction.amount < 0; ;
   });
 
-  // Getting only days and amount from the last week transactions
-  // Days are sorted showing current day at the last and remaining before it
+  // Get days and amount from the last week transactions
+  // Days are sorted showing current day at last and remaining before it
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   const today = new Date().getDay();

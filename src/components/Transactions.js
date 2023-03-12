@@ -1,8 +1,7 @@
 
 import {Swipeable} from 'react-native-gesture-handler';
-import React, {useState} from 'react';
+import React, {} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import AlertMessage from '../components/AlertMessage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const deletePress = (id, callback) => {
@@ -43,15 +42,16 @@ const deleteHTTP = async (id, callback) => {
 const Transaction = ({title, amount, id, date, callback}) => {
   const rightSwipeActions = () => {
     return (
-      <TouchableOpacity style={styles.deleteButton} onPress={() => deletePress(id, (message, action)=>
-        callback(message, action))}>
+      <TouchableOpacity style={styles.deleteButton} onPress={() =>
+        deletePress(id, (message, action)=>
+          callback(message, action))}>
         <Text style={styles.deleteInnerText}>Delete</Text>
       </TouchableOpacity>
     );
   };
 
-  // To get the date in a DD/MM/YYY format using built-in constructor function in JavaScript
-  const formattedDate = new Date(date).toLocaleDateString('en-GB'); // 'DD/MM/YYY'
+  // To get  DD/MM/YYY format date using built-in constructor function in JS
+  const formattedDate = new Date(date).toLocaleDateString('en-GB');
 
   return (
     <Swipeable renderRightActions={rightSwipeActions}>

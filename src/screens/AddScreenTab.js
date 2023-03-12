@@ -7,11 +7,11 @@ import {insertTransactionHTTP} from '../../utilities/http';
 
 
 export default () => {
-  /*  - Inserting a expense data to backend, missing field apart from calender is managed
-            from the back end (such as description and amount).
-            - Custom Message modal is used to showing the response on successful/failed attempt
-            - Custom functions are provided to ensure description should be in english and
-              amount should be in digits (round to zero) */
+  /*  - Inserting a expense data to backend, missing field apart
+        from calender is managed from the back end (such as description and amount).
+      - Custom Message modal is used to showing the response on successful/failed attempt
+      - Custom functions are provided to ensure description should be in english and
+        amount should be in digits (round to zero) */
 
   // States to hold data related to add screen
   const [value, setValue] = useState(0);

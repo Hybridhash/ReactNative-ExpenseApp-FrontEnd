@@ -1,6 +1,6 @@
 
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, TextInput, SafeAreaView} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, SafeAreaView} from 'react-native';
 import {useLogin} from '../context/LoginContext';
 import {FontAwesome5, MaterialIcons} from '@expo/vector-icons';
 import {appLogout} from '../../utilities/http';
@@ -8,8 +8,8 @@ import {appLogout} from '../../utilities/http';
 
 export default () => {
   /* - Handle logout from the application
-             - Context variable "setIsLoggedIn" is set to false
-             - Token data is removed from local storage */
+       - Context variable "setIsLoggedIn" is set to false
+       - Token data is removed from local storage */
 
 
   // Taking setIsLoggedIn from the context to logout from application
@@ -45,7 +45,7 @@ export default () => {
           <View style={styles.list}>
             <Text style={styles.listText}>
               <MaterialIcons name="lock" size={24} color="white" />{'  '}
-                              Change Password
+               Change Password
             </Text>
           </View>
         </TouchableOpacity>
@@ -53,7 +53,7 @@ export default () => {
           <View style={styles.list}>
             <Text style={styles.listText}>
               <MaterialIcons name="app-settings-alt" size={24} color="white" />{'  '}
-                              App Settings
+                App Settings
             </Text>
           </View>
         </TouchableOpacity>
@@ -61,7 +61,7 @@ export default () => {
           <View style={styles.list}>
             <Text style={styles.listText}>
               <MaterialIcons name="help" size={24} color="white" />{'  '}
-                              Help
+                Help
             </Text>
           </View>
         </TouchableOpacity>

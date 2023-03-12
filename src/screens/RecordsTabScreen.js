@@ -9,14 +9,12 @@ import {fetchTransactionsHTTP} from '../../utilities/http';
 
 export default ({navigation}) => {
   /*  - Shows Transactions already recorded in the database
-              - Hooks are used to load data on first start and upon navigating
-                between tabs
-              - The bottom tab bar is used to show the current tab*/
+      - Hooks are used to load data on first start and upon
+        navigating between tabs
+      - The bottom tab bar is used to show the current tab*/
 
 
   // States to hold data related to add screen
-  // const [backgroundColor, setBackgroundColor] = useState('red');
-  // const [type, setType] = useState('expense')
   const [visible, setVisible] = useState(false);
   const [message, setMessage] = useState([]);
   const [transactionData, setTransactionData] = useState([]);
