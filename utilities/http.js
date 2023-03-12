@@ -18,7 +18,7 @@ const userRegistrationHTTP = async (name, email, password) => {
   try {
     if (!response.ok) {
       const data = await response.json();
-      console.log('Backend error :', data);
+      // console.log('Backend error :', data);
       return {error: data.detail};
     } else {
     // To make the expense/income first letter uppercase for better presentation

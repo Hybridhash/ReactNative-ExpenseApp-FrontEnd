@@ -1,6 +1,6 @@
 
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View, SafeAreaView, FlatList} from 'react-native';
+import {StyleSheet, Text, View, SafeAreaView, FlatList, TextInput} from 'react-native';
 import AlertMessage from '../components/AlertMessage';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import Transaction from '../components/Transactions';
@@ -19,6 +19,7 @@ export default ({navigation}) => {
   const [message, setMessage] = useState([]);
   const [transactionData, setTransactionData] = useState([]);
   const [refreshStatus, setRefreshStatus] = useState(false);
+  const [query, setQuery] = useState("")
 
   // Hook to refresh data on deleting the transaction
   useEffect(() => {
@@ -42,8 +43,22 @@ export default ({navigation}) => {
     return unsubscribe;
   }, [navigation]);
 
+  // Hook to filter the data based on search query
+  useEffect(() => {
+    if (query === "") {
+      // refresh the data on empty string
+      setRefreshStatus(true);
+    } else {
+      const filteredData = transactionData.filter(item => {
+        return item.description.toLowerCase().includes(query.toLowerCase());
+      });
+      // setting transaction data with query filter
+      setTransactionData(filteredData);
+    }
+  }, [query]);
+
   // to get the height of the bottom navigation bar
-  const tabBarHeight = useBottomTabBarHeight() + 20;
+  const tabBarHeight = useBottomTabBarHeight() + 90;
 
   // Function to create the transaction list based on data fetched from backend
   const renderItem = ({item})=>(
@@ -67,10 +82,20 @@ export default ({navigation}) => {
     setVisible(false);
   };
 
+  console.log("Query: ", query)
+
   return (
     <View style={styles.container}>
       <SafeAreaView style={{marginBottom: tabBarHeight}}>
         <Text style={styles.text}>Transactions Detail</Text>
+        <TextInput style={styles.inputBox}
+          placeholder='search'
+          placeholderTextColor={'grey'}
+          autoCapitalize="none"
+          onChangeText={text => setQuery(text)}
+          value={query}
+          />
+
         <FlatList
           data={transactionData}
           renderItem={renderItem}
@@ -95,5 +120,20 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: 'bold',
     marginTop: 20,
+  },
+  inputBox: {
+    height: 50,
+    borderRadius: 20,
+    overflow: 'hidden',
+    backgroundColor: '#C0C7CE',
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 30,
+    marginRight: 30,
+    borderWidth: 2,
+    borderColor: '#4455BB',
+    fontSize: 22,
+    fontWeight: '400',
+    textAlign: 'center',
   },
 });
