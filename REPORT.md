@@ -70,7 +70,7 @@ Framer.io is used to wireframe the concept before development, and draw.io is fo
   <figure style="margin-right: 5px">
 	  <img src="./Report/Design/LoginScreen-Design.png" width="200" height="500"/>
   </figure>
-  <figure >
+  <figure>
 	  <img src="./Report/Design/AddTransactionScreen-Design.png" width="200" height="500"/>
   </figure>
 </div>
@@ -82,7 +82,7 @@ Framer.io is used to wireframe the concept before development, and draw.io is fo
   <figure style="margin-right: 5px">
 	  <img src="./Report/Design/StatisticScreen-Design.png" width="200" height="500"/>
   </figure>
-  <figure >
+  <figure>
     <img src="./Report/Design/SettingsScreen-Design.png" width="200" height="500"/>
   </figure>
 </div>
