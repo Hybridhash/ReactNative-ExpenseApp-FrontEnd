@@ -1,7 +1,7 @@
 
-import React, {  } from 'react'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { MaterialCommunityIcons, Ionicons, Octicons  } from '@expo/vector-icons';
+import React, { } from 'react';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {MaterialCommunityIcons, Ionicons, Octicons} from '@expo/vector-icons';
 import AddScreenTab from './AddScreenTab';
 import RecordsTabScreen from './RecordsTabScreen';
 import StatisticTabScreen from './StatisticTabScreen';
@@ -12,43 +12,42 @@ const Tab = createBottomTabNavigator();
 
 
 export default function App() {
-
-          /* This is used for Navigation between different tabs once user is 
+  /* This is used for Navigation between different tabs once user is
           authenticated from backend. There are four tabs in application.*/
 
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false, tabBarStyle: { position: 'absolute' }, 
-    tabBarActiveTintColor: '#e91e63'}} >
+    <Tab.Navigator screenOptions={{headerShown: false, tabBarStyle: {position: 'absolute'},
+      tabBarActiveTintColor: '#e91e63'}} >
       {/* Add Transaction - To add new transaction */}
-      <Tab.Screen name="Add" component={AddScreenTab} 
+      <Tab.Screen name="Add" component={AddScreenTab}
         options={{
-          tabBarIcon: ({ color}) => (
-              <Ionicons name="add-outline" color={color} size={36} />
-            ),
-          }}
+          tabBarIcon: ({color}) => (
+            <Ionicons name="add-outline" color={color} size={36} />
+          ),
+        }}
       />
       {/* Records - Shows record from backend */}
-      <Tab.Screen name="Records" component={RecordsTabScreen} 
+      <Tab.Screen name="Records" component={RecordsTabScreen}
         options={{
-          tabBarIcon: ({ color}) => (
-              <MaterialCommunityIcons name="file-cabinet" color={color} size={36} />
-            ),
-          }}
+          tabBarIcon: ({color}) => (
+            <MaterialCommunityIcons name="file-cabinet" color={color} size={36} />
+          ),
+        }}
       />
       {/* Statistic - Shows stats related to transaction records*/}
-      <Tab.Screen name="Statistic" component={StatisticTabScreen} 
-      options={{
-        tabBarIcon: ({ color}) => (
+      <Tab.Screen name="Statistic" component={StatisticTabScreen}
+        options={{
+          tabBarIcon: ({color}) => (
             <Octicons name="graph" color={color} size={32} />
           ),
         }}/>
       {/* Settings - To change the profile and logout*/}
-      <Tab.Screen name="Settings" component={SettingsTabScreen} 
+      <Tab.Screen name="Settings" component={SettingsTabScreen}
         options={{
-          tabBarIcon: ({ color}) => (
-              <Ionicons name="settings-outline" color={color} size={36} />
-            ),
-          }}
+          tabBarIcon: ({color}) => (
+            <Ionicons name="settings-outline" color={color} size={36} />
+          ),
+        }}
       />
     </Tab.Navigator>
   );

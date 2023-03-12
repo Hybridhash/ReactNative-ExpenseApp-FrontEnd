@@ -1,7 +1,7 @@
-import React from "react";
-import { View, Modal, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React from 'react';
+import {View, Modal, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
-const AlertMessage = ({ message, visible, onClose }) => {
+const AlertMessage = ({message, visible, onClose}) => {
   return (
     <Modal
       animationType="fade"
@@ -26,26 +26,26 @@ const AlertMessage = ({ message, visible, onClose }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.5)"
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
   innerContainer: {
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     padding: 20,
-    borderRadius: 5
+    borderRadius: 5,
   },
   message: {
     fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
   button: {
     fontSize: 16,
-    fontWeight: "bold",
-    color: "#4455BB",
-    textAlign: "center"
-  }
+    fontWeight: 'bold',
+    color: '#4455BB',
+    textAlign: 'center',
+  },
 });
 
 export default AlertMessage;
