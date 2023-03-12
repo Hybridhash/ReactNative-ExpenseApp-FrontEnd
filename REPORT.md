@@ -161,30 +161,30 @@ Overall, it was good achievement and I am keen to improve this further for learn
 
 <div style="display:flex;">
   <div style="margin-right: 5px">
-    <figcaption>Signup Screen</figcaption>
+    <p>Signup Screen</p>
     <img src="./Report/WorkingApp/SignupScreen-WorkingApp.png" width="200" height="500"/>
   </div>
   <div style="margin-right: 5px">
-    <figcaption>Login Screen</figcaption>
+    <p>Login Screen</p>
 	  <img src="./Report/WorkingApp/LoginScreen-WorkingApp.png" width="200" height="500"/>
   </div>
   <div >
-    <figcaption>Add Transaction Screen</figcaption>
+    <p>Add Transaction Screen</p>
 	  <img src="./Report/WorkingApp/AddScreen-WorkingApp.png" width="200" height="500"/>
   </div>
 </div>
 
 <div style="display:flex;">
   <div style="margin-right: 5px">
-    <figcaption>Record Screen</figcaption>
+    <p>Record Screen</p>
 	  <img src="./Report/WorkingApp/RecordsScreen-WorkingApp.png"width="200" height="500"/>
   </div>
   <div style="margin-right: 5px">
-    <figcaption>Statistic Screen</figcaption>
+    <p>Statistic Screen</p>
 	  <img src="./Report/WorkingApp/StatisticScreen-WorkingApp.png" width="200" height="500"/>
   </div>
   <div>
-    <figcaption>Settings Screen</figcaption>
+    <p>Settings Screen</p>
     <img src="./Report/WorkingApp/SettingsScreen-WorkingApp.png" width="200" height="500"/>
   </div>
 </div>
