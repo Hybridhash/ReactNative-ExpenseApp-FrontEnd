@@ -19,7 +19,7 @@ export default ({navigation}) => {
   const [message, setMessage] = useState([]);
   const [transactionData, setTransactionData] = useState([]);
   const [refreshStatus, setRefreshStatus] = useState(false);
-  const [query, setQuery] = useState("")
+  const [query, setQuery] = useState('');
 
   // Hook to refresh data on deleting the transaction
   useEffect(() => {
@@ -45,11 +45,11 @@ export default ({navigation}) => {
 
   // Hook to filter the data based on search query
   useEffect(() => {
-    if (query === "") {
+    if (query === '') {
       // refresh the data on empty string
       setRefreshStatus(true);
     } else {
-      const filteredData = transactionData.filter(item => {
+      const filteredData = transactionData.filter((item) => {
         return item.description.toLowerCase().includes(query.toLowerCase());
       });
       // setting transaction data with query filter
@@ -82,7 +82,7 @@ export default ({navigation}) => {
     setVisible(false);
   };
 
-  console.log("Query: ", query)
+  console.log('Query: ', query);
 
   return (
     <View style={styles.container}>
@@ -92,9 +92,9 @@ export default ({navigation}) => {
           placeholder='search'
           placeholderTextColor={'grey'}
           autoCapitalize="none"
-          onChangeText={text => setQuery(text)}
+          onChangeText={(text) => setQuery(text)}
           value={query}
-          />
+        />
 
         <FlatList
           data={transactionData}

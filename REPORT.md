@@ -4,7 +4,7 @@
 ## Concept development 
 
 
-I am Certified Charted Account (ACCA) by profession and have been working as a finance/accounts person for the last 12 years, therefore, I have a keen interest in the financial application. Accordingly, I have decided to create an expense application to record and keep track of the day-to-day expenses. The tech used are as follows:
+I am Certified Charted Account (ACCA) by profession and have been working as a finance/accounts person for the last 12 years, therefore, I have a keen interest in the financial application. Accordingly, I have decided to develop an expense application to record and keep track of the day-to-day expenses. The tech used are as follows:
 
 ### Tech Stack
 
@@ -49,9 +49,6 @@ The brief for the **functionality** introduced in the Frontend application is as
 - Transaction records are fetched from backend and rendered using Lists (Scroll View and Flat list). There - is a unique component created to render the data and provide list of transactions to display.
 - Accumulated expenses/income are shown in a container along with last week's expenses transactions are presented in “Line Chart” using "react-native-chart-kit"
 - Custom “Alert Message” component is created capable of handling various front/back end messages related to backend error, custom messages or validation errors.
-
-**In Progress**
-
 - Filtering the transaction record based on the search term provided by users.
 
 **Future Aspirations**
@@ -65,25 +62,36 @@ The brief for the **functionality** introduced in the Frontend application is as
 ## Wireframing 
 Framer.io is used to wireframe the concept before development, and draw.io is for workflow diagrams. The application is having 5 screens for functionalities as briefed above:
 
-#### Login Screen
 
-<img src="./Report/assets/Design/LoginScreen-Design.png" width="200" height="500"/>
+<div style="display:flex;">
+  <figure style="margin-right: 5px">
+    <figcaption>Signup Screen</figcaption>
+    <img src="./Report/Design/SignupScreen-Design.png" width="200" height="500"/>
+  </figure>
+  <figure style="margin-right: 5px">
+    <figcaption>Login Screen</figcaption>
+	  <img src="./Report/Design/LoginScreen-Design.png" width="200" height="500"/>
+  </figure>
+  <figure >
+    <figcaption>Add Transaction Screen</figcaption>
+	  <img src="./Report/Design/AddTransactionScreen-Design.png" width="200" height="500"/>
+  </figure>
+</div>
 
-#### Signup Screen
-<img src="./Report/assets/Design/SignupScreen-Design.png" width="200" height="500"/>
-
-#### Add Transaction Screen
-<img src="./Report/assets/Design/AddTransactionScreen-Design.png" width="200" height="500"/>
-
-#### Record Screen
-<img src="./Report/assets/Design/RecordsScreen-Design.png" width="200" height="500"/>
-
-#### Statistic Screen
-<img src="./Report/assets/Design/StatisticScreen-Design.png" width="200" height="500"/>
-
-#### Settings Screen
-<img src="./Report/assets/Design/SettingsScreen-Design.png" width="200" height="500"/>
-
+<div style="display:flex;">
+  <figure style="margin-right: 5px">
+    <figcaption>Record Screen</figcaption>
+	  <img src="./Report/Design/RecordsScreen-Design.png" width="200" height="500"/>
+  </figure>
+  <figure style="margin-right: 5px">
+    <figcaption>Statistic Screen</figcaption>
+	  <img src="./Report/Design/StatisticScreen-Design.png" width="200" height="500"/>
+  </figure>
+  <figure >
+    <figcaption>Settings Screen</figcaption>
+    <img src="./Report/Design/SettingsScreen-Design.png" width="200" height="500"/>
+  </figure>
+</div>
 
 There are similar mobile transaction are referred such as Wallet app (Available in Web, IOS and Android). Blue Coin (Available in Android) is referred to get the aspiration related to design and to ensure that it meets the requirements of stakeholders.
 
@@ -104,16 +112,29 @@ Users have requested one of the vital improvement in the application to implemen
 I have implemented initial prototyping using stack navigation and bottom tab navigations using react and basic buttons. Moreover, different sections of the screen are also identified for further additions. The Database was also configured with basic functionality, however, without having a proper JWT system in place.  Images for the initial prototypes are as follows:
 
 <div style="display:flex;">
-  <div>
-	<img src="./Report/assets/Prototype/Login-Screen-Prototype.png" width="200" height="400"/>
+  <div style="margin-right: 5px">
+	<img src="./Report/Prototype/Login-Sceen-Prototype.png" width="200" height="400"/>
   </div>
-  <div>
-	<img src="etc/prototypes/2.png">
+  <div style="margin-right: 5px">
+	<img src="./Report/Prototype/Signup-Sceen-Prototype.png" width="200" height="400"/>
   </div>
-  <div>
-	<img src="etc/prototypes/3.png">
+  <div >
+	<img src="./Report/Prototype/Add-Transaction-Prototype.png" width="200" height="400"/>
   </div>
 </div>
+
+<div style="display:flex;">
+  <div style="margin-right: 5px">
+	<img src="./Report/Prototype/Records-Screen-Prototype.png" width="200" height="400"/>
+  </div>
+  <div style="margin-right: 5px">
+	<img src="./Report/Prototype/Statistic-Screen-Prototype.png" width="200" height="400"/>
+  </div>
+  <div >
+	<img src="./Report/Prototype/Settings-Screen-Prototype.png" width="200" height="400"/>
+  </div>
+</div>
+
 
 
 ## Development 
@@ -133,8 +154,7 @@ MacOS, Expo, VSCode, Iphone Simulators, FastApi uvicorn server are used during c
 ## Unit testing 
 I have used “jest-expo” and “react-test-renderer” for implementing the unit test. Since I am using “react-native-async-storage/async-storage” therefore, it was challenging to create test as it was always for AsyncStore. This problem was solved using jest.mock to mock storage. 
 
-<img src="https://user-images.githubusercontent.com/link-to-your-image.png" width="200" height="200"/>
-
+README.md include instruction for running the test.
 
 ## Evaluation 
 Since it was first time I used React/React Native, therefore, I am satisfied with my attempt to prepare a mobile application. I have faced many challenges and breaking of app throughout development, however, resolving each and every bit keep me going. There is always room for betterment in any project, I wanted to implement many features but was unable to complete them because of limited time.
@@ -143,73 +163,37 @@ Overall, it was good achievement and I am keen to improve this further for learn
 
 ## Application Walkthrough
 
-## Run Locally
+## Final Renders
 
-Create a virtual envoirnment
+<div style="display:flex;">
+  <figure style="margin-right: 5px">
+    <figcaption>Signup Screen</figcaption>
+    <img src="./Report/WorkingApp/SignupScreen-WorkingApp.png" width="200" height="500"/>
+  </figure>
+  <figure style="margin-right: 5px">
+    <figcaption>Login Screen</figcaption>
+	  <img src="./Report/WorkingApp/LoginScreen-WorkingApp.png" width="200" height="500"/>
+  </figure>
+  <figure >
+    <figcaption>Add Transaction Screen</figcaption>
+	  <img src="./Report/WorkingApp/AddScreen-WorkingApp.png" width="200" height="500"/>
+  </figure>
+</div>
 
-```bash
-  python -m venv bioweb
-```
-
-Go to the project directory
-
-```bash
-  cd my-project
-```
-
-Install dependencies
-
-```bash
-  pip install -r requirements.txt
-```
-
-Start the server
-
-```bash
-  python manage.py runserver
-```
-
-Create supersuer
-
-```bash
-  python manage.py createsuperuser
-```
-
-## Running Tests
-
-To run tests, run the following command
-
-```bash
-  pytest or pytest -rP
-```
+<div style="display:flex;">
+  <figure style="margin-right: 5px">
+    <figcaption>Record Screen</figcaption>
+	  <img src="./Report/WorkingApp/RecordsScreen-WorkingApp.png"width="200" height="500"/>
+  </figure>
+  <figure style="margin-right: 5px">
+    <figcaption>Statistic Screen</figcaption>
+	  <img src="./Report/WorkingApp/StatisticScreen-WorkingApp.png" width="200" height="500"/>
+  </figure>
+  <figure>
+    <figcaption>Settings Screen</figcaption>
+    <img src="./Report/WorkingApp/SettingsScreen-WorkingApp.png" width="200" height="500"/>
+  </figure>
+</div>
 
 
-## Loading a data from CSV's 
-
-To deploy this project delete existing database file and run a script to load the data
-
-Remove existing data file
-
-```bash
-<File: db.sqlite3>
-```
-
-Make migrations
-
-```bash
-python manage.py makemigrations
-```
-
-Run the migrations
-
-
-```bash
-python manage.py migrate
-```
-
-Run script to load data
-
-```bash
-python manage.py runscript populate_data
-```
 
