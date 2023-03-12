@@ -58,7 +58,7 @@ export default ({navigation}) => {
   }, [query]);
 
   // to get the height of the bottom navigation bar
-  const tabBarHeight = useBottomTabBarHeight() + 90;
+  const tabBarHeight = useBottomTabBarHeight() + 120;
 
   // Function to create the transaction list based on data fetched from backend
   const renderItem = ({item})=>(
@@ -95,7 +95,7 @@ export default ({navigation}) => {
           onChangeText={(text) => setQuery(text)}
           value={query}
         />
-
+        <Text style={[styles.text,{marginTop:0, marginBottom:3, color:'green',}]}>Swipe left to delete</Text>
         <FlatList
           data={transactionData}
           renderItem={renderItem}

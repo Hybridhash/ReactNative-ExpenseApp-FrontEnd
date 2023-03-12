@@ -92,14 +92,14 @@ export default function RegistrationScreen({navigation}) {
           onChangeText={(text) => setEmail(text)}
           value={email}/>
 
-        <TextInput secureTextEntry={false} style={styles.inputBox}
+        <TextInput secureTextEntry={true} style={styles.inputBox}
           placeholder='Password'
           placeholderTextColor={'grey'}
           autoCapitalize="none"
           onChangeText={(text) => setPassword(text)}
           value={password}/>
 
-        <TextInput secureTextEntry={false} style={styles.inputBox}
+        <TextInput secureTextEntry={true} style={styles.inputBox}
           placeholder='Confirm Password'
           placeholderTextColor={'grey'}
           autoCapitalize="none"
