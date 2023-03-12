@@ -106,27 +106,27 @@ Users have requested one of the vital improvement in the application to implemen
 I have implemented initial prototyping using stack navigation and bottom tab navigations using react and basic buttons. Moreover, different sections of the screen are also identified for further additions. The Database was also configured with basic functionality, however, without having a proper JWT system in place.  Images for the initial prototypes are as follows:
 
 <div style="display:flex;">
-  <div style="margin-right: 5px">
+  <figure style="margin-right: 5px">
 	<img src="./Report/Prototype/Login-Sceen-Prototype.png" width="200" height="400"/>
-  </div>
+  </figure>
   <div style="margin-right: 5px">
 	<img src="./Report/Prototype/Signup-Sceen-Prototype.png" width="200" height="400"/>
-  </div>
-  <div >
+  </figure>
+  <figure>
 	<img src="./Report/Prototype/Add-Transaction-Prototype.png" width="200" height="400"/>
-  </div>
+  </figure>
 </div>
 
 <div style="display:flex;">
-  <div style="margin-right: 5px">
+  <figure style="margin-right: 5px">
 	<img src="./Report/Prototype/Records-Screen-Prototype.png" width="200" height="400"/>
-  </div>
-  <div style="margin-right: 5px">
+  </figure>
+  <figure style="margin-right: 5px">
 	<img src="./Report/Prototype/Statistic-Screen-Prototype.png" width="200" height="400"/>
-  </div>
-  <div >
+  </figure>
+  <figure>
 	<img src="./Report/Prototype/Settings-Screen-Prototype.png" width="200" height="400"/>
-  </div>
+  </figure>
 </div>
 
 
