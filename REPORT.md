@@ -65,30 +65,24 @@ Framer.io is used to wireframe the concept before development, and draw.io is fo
 
 <div style="display:flex;">
   <figure style="margin-right: 5px">
-    <figcaption>Signup Screen</figcaption>
     <img src="./Report/Design/SignupScreen-Design.png" width="200" height="500"/>
   </figure>
   <figure style="margin-right: 5px">
-    <figcaption>Login Screen</figcaption>
 	  <img src="./Report/Design/LoginScreen-Design.png" width="200" height="500"/>
   </figure>
   <figure >
-    <figcaption>Add Transaction Screen</figcaption>
 	  <img src="./Report/Design/AddTransactionScreen-Design.png" width="200" height="500"/>
   </figure>
 </div>
 
 <div style="display:flex;">
   <figure style="margin-right: 5px">
-    <figcaption>Record Screen</figcaption>
 	  <img src="./Report/Design/RecordsScreen-Design.png" width="200" height="500"/>
   </figure>
   <figure style="margin-right: 5px">
-    <figcaption>Statistic Screen</figcaption>
 	  <img src="./Report/Design/StatisticScreen-Design.png" width="200" height="500"/>
   </figure>
   <figure >
-    <figcaption>Settings Screen</figcaption>
     <img src="./Report/Design/SettingsScreen-Design.png" width="200" height="500"/>
   </figure>
 </div>
@@ -166,33 +160,33 @@ Overall, it was good achievement and I am keen to improve this further for learn
 ## Final Renders
 
 <div style="display:flex;">
-  <figure style="margin-right: 5px">
+  <div style="margin-right: 5px">
     <figcaption>Signup Screen</figcaption>
     <img src="./Report/WorkingApp/SignupScreen-WorkingApp.png" width="200" height="500"/>
-  </figure>
-  <figure style="margin-right: 5px">
+  </div>
+  <div style="margin-right: 5px">
     <figcaption>Login Screen</figcaption>
 	  <img src="./Report/WorkingApp/LoginScreen-WorkingApp.png" width="200" height="500"/>
-  </figure>
-  <figure >
+  </div>
+  <div >
     <figcaption>Add Transaction Screen</figcaption>
 	  <img src="./Report/WorkingApp/AddScreen-WorkingApp.png" width="200" height="500"/>
-  </figure>
+  </div>
 </div>
 
 <div style="display:flex;">
-  <figure style="margin-right: 5px">
+  <div style="margin-right: 5px">
     <figcaption>Record Screen</figcaption>
 	  <img src="./Report/WorkingApp/RecordsScreen-WorkingApp.png"width="200" height="500"/>
-  </figure>
-  <figure style="margin-right: 5px">
+  </div>
+  <div style="margin-right: 5px">
     <figcaption>Statistic Screen</figcaption>
 	  <img src="./Report/WorkingApp/StatisticScreen-WorkingApp.png" width="200" height="500"/>
-  </figure>
-  <figure>
+  </div>
+  <div>
     <figcaption>Settings Screen</figcaption>
     <img src="./Report/WorkingApp/SettingsScreen-WorkingApp.png" width="200" height="500"/>
-  </figure>
+  </div>
 </div>
 
 
