@@ -28,5 +28,6 @@
         "rules": {
           "quotes": [2, "double"]
         }
-      }
+      },
+    "markdown-pdf.convertOnSave": true 
 }

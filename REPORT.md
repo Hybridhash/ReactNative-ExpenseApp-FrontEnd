@@ -46,10 +46,12 @@ The brief for the **functionality** introduced in the Frontend application is as
 - Token is used for future requests from the client to the server and “Login” Context/provider is provided to have logged in state while using the app till the user opts to log out. 
 - User Registration using FastAPI backend. Validation rules are provided to ensure clean data is submitted to the database.
 - React Navigation (Using Stack and tab navigation)
-- Transaction records are fetched from backend and rendered using Lists (Scroll View and Flat list). There - is a unique component created to render the data and provide list of transactions to display.
-- Accumulated expenses/income are shown in a container along with last week's expenses transactions are presented in “Line Chart” using "react-native-chart-kit"
-- Custom “Alert Message” component is created capable of handling various front/back end messages related to backend error, custom messages or validation errors.
+- Transaction records are fetched from backend and rendered using Lists (Scroll View and Flat list). - - There are unique component (Named Transaction) created to render the data and provide list of transactions to display.
+- There is option to delete the transaction by swiping the record list to left, which popup with button to delete the transaction.
+related to backend error, custom messages or validation errors.
 - Filtering the transaction record based on the search term provided by users.
+- Accumulated expenses/income are shown in a container along with last week's expenses transactions are presented in “Line Chart” using "react-native-chart-kit".
+- Custom “Alert Message” component is created capable of handling various front/back end messages. 
 
 **Future Aspirations**
 
@@ -157,7 +159,7 @@ Overall, it was good achievement and I am keen to improve this further for learn
 
 ## Application Walkthrough
 
-
+[Youtube](https://www.youtube.com/watch?v=cWE6OtDTBUs)
 
 Database (sqlite3) is also included for ease to refer the existing data already created while testing the application. You can access the user **test1** with the following credentials:
 

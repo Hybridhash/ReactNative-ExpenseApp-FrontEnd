@@ -1,7 +1,7 @@
 
 # Expense Tracking Application [CM 3050 Mobile Development] - Frontend & Backend
 
-Expense tracking application **Frontend** is developed using React Navit, React and its packages. **Backend** is developed using FastApi and SQL Model under the hood.
+Expense tracking application **Frontend** is developed using React Navit, React and its packages. **Backend** is developed using FastApi and SQL Model under the hood. Tokens are generated from backend for authentication of users, and frontend sends the token with HTTP requests.
 
 ## Frontend
 
@@ -132,8 +132,7 @@ New users could be easily created using the signup screen from the front end and
 
 ## Demo
 
-
-
+[Youtube](https://www.youtube.com/watch?v=cWE6OtDTBUs)
 
 ## Tech Stack
 
