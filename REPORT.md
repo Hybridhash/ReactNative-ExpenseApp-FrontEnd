@@ -157,6 +157,13 @@ Overall, it was good achievement and I am keen to improve this further for learn
 
 ## Application Walkthrough
 
+
+
+Database (sqlite3) is also included for ease to refer the existing data already created while testing the application. You can access the user **test1** with the following credentials:
+
+- **Username**: test1
+- **Passwrod**: test1 
+
 ## Final Renders
 
 <div style="display:flex;">
